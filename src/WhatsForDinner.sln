@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7511669B-CC93-45D5-8607-E10FE4A0FE5A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsForDinner.Web", "WhatsForDinner.Web\WhatsForDinner.Web.csproj", "{B11323DC-42BA-4355-A5ED-E9ACF3879743}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{9A7CA85F-EBF5-4DFA-925F-4552372EE672}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsForDinner.Common", "..\lib\WhatsForDinner.Common\WhatsForDinner.Common.csproj", "{A820455F-7EAC-423A-9170-BFE950795F03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsForDinner.SqlServer", "..\lib\WhatsForDinner.SqlServer\WhatsForDinner.SqlServer.csproj", "{956024DA-52CA-444A-A362-1771C23EC280}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{056DE73E-CB93-4BFE-9F8E-391966FD28A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsForDinner.Common.Tests", "..\test\WhatsForDinner.Common.Tests\WhatsForDinner.Common.Tests.csproj", "{12003265-3330-4FF6-A3FD-AFC0F25E68AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B11323DC-42BA-4355-A5ED-E9ACF3879743}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B11323DC-42BA-4355-A5ED-E9ACF3879743}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B11323DC-42BA-4355-A5ED-E9ACF3879743}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B11323DC-42BA-4355-A5ED-E9ACF3879743}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A820455F-7EAC-423A-9170-BFE950795F03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A820455F-7EAC-423A-9170-BFE950795F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A820455F-7EAC-423A-9170-BFE950795F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A820455F-7EAC-423A-9170-BFE950795F03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{956024DA-52CA-444A-A362-1771C23EC280}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{956024DA-52CA-444A-A362-1771C23EC280}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{956024DA-52CA-444A-A362-1771C23EC280}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{956024DA-52CA-444A-A362-1771C23EC280}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12003265-3330-4FF6-A3FD-AFC0F25E68AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12003265-3330-4FF6-A3FD-AFC0F25E68AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12003265-3330-4FF6-A3FD-AFC0F25E68AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12003265-3330-4FF6-A3FD-AFC0F25E68AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B11323DC-42BA-4355-A5ED-E9ACF3879743} = {7511669B-CC93-45D5-8607-E10FE4A0FE5A}
+		{A820455F-7EAC-423A-9170-BFE950795F03} = {9A7CA85F-EBF5-4DFA-925F-4552372EE672}
+		{956024DA-52CA-444A-A362-1771C23EC280} = {9A7CA85F-EBF5-4DFA-925F-4552372EE672}
+		{12003265-3330-4FF6-A3FD-AFC0F25E68AB} = {056DE73E-CB93-4BFE-9F8E-391966FD28A6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {98F69134-17CB-4BE4-8AF0-FF91CD6616FE}
+	EndGlobalSection
+EndGlobal
