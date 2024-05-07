@@ -29,6 +29,8 @@ public sealed class ApplicationInsightsOptionsTests
         result.ShouldHaveAnyValidationError();
     }
 
+
+
     #region Test data
 
     private static IHostEnvironment DevelopmentEnvironment
