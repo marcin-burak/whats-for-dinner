@@ -18,7 +18,7 @@ public sealed class ApplicationInsightsOptionsValidator : AbstractValidator<Appl
         RuleFor(options => options.ConnectionString)
             .NotEmpty()
             .Trimmed()
-            .Must(connectionString => string.IsNullOrWhiteSpace(connectionString) && connectionString.Contains("IngestionKey="))
+            .Must(connectionString => string.IsNullOrWhiteSpace(connectionString) is false && connectionString.Contains("IngestionKey="))
                 .WithMessage("{PropertyName} has to contain ingestion key.")
             .WithName("Application Insights connection string");
 
