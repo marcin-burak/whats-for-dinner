@@ -42,12 +42,12 @@ public sealed class ApplicationInsightsOptionsTests
         }
     }
 
-    private static IHostEnvironment TestEnvironment
+    private static IHostEnvironment NonDevelopmentEnvironment
     {
         get
         {
             var mock = Substitute.For<IHostEnvironment>();
-            mock.EnvironmentName = "Test";
+            mock.EnvironmentName = "NonDevelopment";
 
             return mock;
         }
@@ -69,7 +69,7 @@ public sealed class ApplicationInsightsOptionsTests
                 ConnectionString = "IngestionKey=",
                 DeveloperMode = false
             },
-            TestEnvironment
+            NonDevelopmentEnvironment
         },
     };
 
@@ -129,7 +129,7 @@ public sealed class ApplicationInsightsOptionsTests
                 ConnectionString = "IngestionKey=",
                 DeveloperMode = true
             },
-            TestEnvironment
+            NonDevelopmentEnvironment
         },
     };
 
