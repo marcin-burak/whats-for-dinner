@@ -21,7 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsForDinner.Web.Tests", 
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{FCB504A4-D6A9-4FB5-8707-209B13A63B2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsForDinner.SqlServer.Tests", "test\WhatsForDinner.SqlServer.Tests\WhatsForDinner.SqlServer.Tests.csproj", "{302ABD82-8E52-440A-8AC4-10944A9B48F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsForDinner.SqlServer.Tests", "test\WhatsForDinner.SqlServer.Tests\WhatsForDinner.SqlServer.Tests.csproj", "{302ABD82-8E52-440A-8AC4-10944A9B48F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{B4FA431D-4AD9-42E3-AAC8-D453DF5F53E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsForDinner.UserProvisioning.Console", "tools\WhatsForDinner.UserProvisioning.Console\WhatsForDinner.UserProvisioning.Console.csproj", "{3BBF7904-CBE6-40F7-866E-DE02C3ADB48C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,10 @@ Global
 		{302ABD82-8E52-440A-8AC4-10944A9B48F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{302ABD82-8E52-440A-8AC4-10944A9B48F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{302ABD82-8E52-440A-8AC4-10944A9B48F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BBF7904-CBE6-40F7-866E-DE02C3ADB48C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BBF7904-CBE6-40F7-866E-DE02C3ADB48C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BBF7904-CBE6-40F7-866E-DE02C3ADB48C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BBF7904-CBE6-40F7-866E-DE02C3ADB48C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +76,7 @@ Global
 		{12003265-3330-4FF6-A3FD-AFC0F25E68AB} = {056DE73E-CB93-4BFE-9F8E-391966FD28A6}
 		{D31954A7-2194-45C2-9ECE-E96BF4B62428} = {056DE73E-CB93-4BFE-9F8E-391966FD28A6}
 		{302ABD82-8E52-440A-8AC4-10944A9B48F1} = {056DE73E-CB93-4BFE-9F8E-391966FD28A6}
+		{3BBF7904-CBE6-40F7-866E-DE02C3ADB48C} = {B4FA431D-4AD9-42E3-AAC8-D453DF5F53E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {98F69134-17CB-4BE4-8AF0-FF91CD6616FE}

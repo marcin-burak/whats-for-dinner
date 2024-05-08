@@ -12,7 +12,7 @@ using WhatsForDinner.SqlServer;
 namespace WhatsForDinner.SqlServer.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240507175644_Init")]
+    [Migration("20240508104101_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -179,6 +179,21 @@ namespace WhatsForDinner.SqlServer.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(18)
+                        .HasColumnType("nvarchar(18)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
