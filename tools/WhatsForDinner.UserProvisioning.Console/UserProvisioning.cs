@@ -33,7 +33,7 @@ public sealed class UserProvisioning(ILogger<UserProvisioning> logger, DatabaseC
 
         var addUserLoginResult = await _userManager.AddLoginAsync(user, new(
             loginProvider: "Microsoft",
-            providerKey: "Marcin Burak",
+            providerKey: "marcin.burak@outlook.com",
             displayName: "Microsoft"
         ));
         addUserLoginResult.ThrowOnFail($"Failed to add Microsoft user login for user '{user.UserName}'");

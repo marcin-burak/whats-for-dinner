@@ -1,0 +1,3 @@
+﻿@baseUrl = https://localhost:5000/api/v1
+
+POST {{baseUrl}}/sign-in

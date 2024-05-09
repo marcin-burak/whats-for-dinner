@@ -11,7 +11,7 @@ services:
       - ASPNETCORE_HTTPS_PORTS=8081
       - SqlServer__ConnectionString=Server=sqlserver,1433;Database=WhatsForDinner;User=sa;Password=P@ssw0rd;TrustServerCertificate=true;
     ports:
-      - 8081
+      - 5000:8081
     volumes:
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
     depends_on:
