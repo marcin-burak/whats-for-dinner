@@ -26,10 +26,11 @@ public static class Configuration
 {
     public static IServiceCollection AddOpenApiConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddOptionsByConvention<OpenApiOptions>();
+
         var openApiOptions = configuration.GetOptionsByConvention<OpenApiOptions>();
         if (openApiOptions.Enabled)
         {
-
             services
                 .AddEndpointsApiExplorer()
                 .AddSwaggerGen();

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using WhatsForDinner.Common.Extensions;
 using WhatsForDinner.SqlServer;
 using WhatsForDinner.UserProvisioning.Console;
 
@@ -8,6 +9,7 @@ var builder = Host.CreateApplicationBuilder();
 
 builder.Services
     .AddSqlServerConfiguration(builder.Configuration)
+    .AddOptionsByConvention<ProvisioningOptions>()
     .AddScoped<UserProvisioning>();
 
 var app = builder.Build();
