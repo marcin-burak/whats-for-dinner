@@ -60,7 +60,8 @@ public sealed class ConfigurationTests
         {
             new()
             {
-                Enabled = true
+                Enabled = true,
+                ClientId = Guid.NewGuid().ToString()
             },
             DevelopmentEnvironment
         },
@@ -78,9 +79,50 @@ public sealed class ConfigurationTests
         {
             new()
             {
-                Enabled = true
+                Enabled = true,
+                ClientId = Guid.NewGuid().ToString()
             },
             NonDevelopmentEnvironment
+        },
+        {
+            new()
+            {
+                Enabled = true,
+                ClientId = null
+            },
+            DevelopmentEnvironment
+        },
+        {
+            new()
+            {
+                Enabled = true,
+                ClientId = ""
+            },
+            DevelopmentEnvironment
+        },
+        {
+            new()
+            {
+                Enabled = true,
+                ClientId = " "
+            },
+            DevelopmentEnvironment
+        },
+        {
+            new()
+            {
+                Enabled = true,
+                ClientId = " 56cdbfba-6302-4298-b0f1-abfee04bb355 "
+            },
+            DevelopmentEnvironment
+        },
+        {
+            new()
+            {
+                Enabled = true,
+                ClientId = "56cdbfba-6302-4298-b0f1-abfee04bb"
+            },
+            DevelopmentEnvironment
         },
     };
 

@@ -12,7 +12,6 @@ public sealed class MicrosoftIdentityPlatformOptionsTests
 
         Assert.Equal("consumers", options.TenantId);
         Assert.Equal("https://login.microsoftonline.com", options.Instance);
-        Assert.Equal("/.auth/signin-oidc", options.CallbackPath);
     }
 
     [Theory]
@@ -41,12 +40,7 @@ public sealed class MicrosoftIdentityPlatformOptionsTests
             new()
             {
                 ClientId = Guid.NewGuid().ToString(),
-                ClientSecret = "secret",
-                Scope =
-                [
-                    "https://graph.microsoft.com/User.Read",
-                    "https://graph.microsoft.com/Tasks.ReadWrite.Shared"
-                ]
+                ClientSecret = "secret"
             }
         }
     };
@@ -57,87 +51,21 @@ public sealed class MicrosoftIdentityPlatformOptionsTests
             new()
             {
                 ClientId = null!,
-                ClientSecret = null!,
-                Scope = null!
+                ClientSecret = null!
             }
         },
         {
             new()
             {
                 ClientId = "",
-                ClientSecret = "",
-                Scope = []
+                ClientSecret = ""
             }
         },
         {
             new()
             {
                 ClientId = $" {Guid.NewGuid()} ",
-                ClientSecret = " secret ",
-                Scope = [null!]
-            }
-        },
-        {
-            new()
-            {
-                ClientId = Guid.Empty.ToString(),
-                ClientSecret = "secret",
-                Scope = [""]
-            }
-        },
-        {
-            new()
-            {
-                ClientId = Guid.NewGuid().ToString(),
-                ClientSecret = "secret",
-                Scope = [null!, null!, null!]
-            }
-        },
-        {
-            new()
-            {
-                ClientId = Guid.NewGuid().ToString(),
-                ClientSecret = "secret",
-                Scope = ["", "", ""]
-            }
-        },
-        {
-            new()
-            {
-                ClientId = Guid.NewGuid().ToString(),
-                ClientSecret = "secret",
-                Scope = [null!, "", null!]
-            }
-        },
-        {
-            new()
-            {
-                ClientId = Guid.NewGuid().ToString(),
-                ClientSecret = "secret",
-                Scope = ["  ", " ", "  "]
-            }
-        },
-        {
-            new()
-            {
-                ClientId = Guid.NewGuid().ToString(),
-                ClientSecret = "secret",
-                Scope =
-                [
-                    " https://graph.microsoft.com/User.Read ",
-                ]
-            }
-        },
-        {
-            new()
-            {
-                ClientId = Guid.NewGuid().ToString(),
-                ClientSecret = "secret",
-                Scope =
-                [
-                    "https://graph.microsoft.com/User.Read",
-                    "https://graph.microsoft.com/User.Read"
-                ]
+                ClientSecret = " secret "
             }
         },
     };

@@ -12,10 +12,6 @@ public sealed class MicrosoftIdentityPlatformOptions
     public string ClientId { get; set; } = string.Empty;
 
     public string ClientSecret { get; set; } = string.Empty;
-
-    public string CallbackPath { get; } = "/.auth/signin-oidc";
-
-    public IReadOnlyCollection<string> Scope { get; set; } = [];
 }
 
 public sealed class MicrosoftIdentityPlatformOptionsValidator : AbstractValidator<MicrosoftIdentityPlatformOptions>
@@ -40,19 +36,5 @@ public sealed class MicrosoftIdentityPlatformOptionsValidator : AbstractValidato
         RuleFor(options => options.ClientSecret)
             .NotEmpty()
             .Trimmed();
-
-        RuleFor(options => options.CallbackPath)
-            .NotEmpty()
-            .Trimmed()
-            .Equal("/.auth/signin-oidc");
-
-        RuleFor(options => options.Scope)
-            .NotEmpty()
-            .DistinctItems();
-
-        RuleForEach(options => options.Scope)
-            .NotEmpty()
-            .Trimmed()
-            .AbsoluteHttpsUri();
     }
 }
