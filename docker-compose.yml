@@ -1,8 +1,17 @@
 version: '3.4'
 
 services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=P@ssw0rd
+    ports:
+      - 1433:1433
+    volumes:
+      - sqlservervolume:/var/opt/mssql
   web:
-    image: ${DOCKER_REGISTRY-}whatsfordinnerweb
+    image: ${DOCKER_REGISTRY-}whats-for-dinner-web
     build:
       context: .
       dockerfile: src/WhatsForDinner.Web/Dockerfile
@@ -16,14 +25,14 @@ services:
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
     depends_on:
       - sqlserver
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=P@ssw0rd
+  spa:
+    image: ${DOCKER_REGISTRY-}whats-for-dinner-spa
+    build:
+      context: src/whats-for-dinner-spa
+      dockerfile: Dockerfile
     ports:
-      - 1433:1433
-    volumes:
-      - sqlservervolume:/var/opt/mssql
+      - 5001:4200
+    depends_on:
+      - web
 volumes:
   sqlservervolume:
