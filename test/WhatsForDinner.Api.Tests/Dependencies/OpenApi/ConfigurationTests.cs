@@ -1,9 +1,9 @@
 ﻿using FluentValidation.TestHelper;
 using Microsoft.Extensions.Hosting;
 using NSubstitute;
-using WhatsForDinner.Web.Dependencies.OpenApi;
+using WhatsForDinner.Api.Dependencies.OpenApi;
 
-namespace WhatsForDinner.Web.Tests.Dependencies.OpenApi;
+namespace WhatsForDinner.Api.Tests.Dependencies.OpenApi;
 
 public sealed class ConfigurationTests
 {

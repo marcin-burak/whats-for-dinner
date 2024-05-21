@@ -1,8 +1,12 @@
-﻿namespace WhatsForDinner.Web.Features.Common.Authentication;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace WhatsForDinner.Common.Authentication;
 
 public interface IAuthentication
 {
     Guid GetCurrentUserId();
+
+    Guid? TryGetCurrentUserId();
 }
 
 public sealed class Authentication : IAuthentication
@@ -32,4 +36,6 @@ public sealed class Authentication : IAuthentication
 
         return _currentUserId.Value;
     }
+
+    public Guid? TryGetCurrentUserId() => _currentUserId;
 }

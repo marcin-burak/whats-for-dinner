@@ -1,39 +1,28 @@
 ﻿using FluentValidation;
 using WhatsForDinner.Common.FluentValidation;
+using WhatsForDinner.Common.MicrosoftIdentityPlatform;
 
-namespace WhatsForDinner.Web.Dependencies.Authentication;
+namespace WhatsForDinner.Web.Dependencies.MicrosoftIdentityPlatform;
 
-public sealed class MicrosoftIdentityPlatformOptions
+public sealed class MicrosoftIdentityPlatformOptions : MicrosoftIdentityPlatformBaseOptions
 {
-    public string TenantId { get; } = "consumers";
+    public string ApiClientId { get; set; } = string.Empty;
 
-    public string Instance { get; } = "https://login.microsoftonline.com";
+    public string CallbackPath { get; set; } = "/.auth/signin-oidc";
 
-    public string ClientId { get; set; } = string.Empty;
-
-    public string ClientSecret { get; set; } = string.Empty;
+    public IReadOnlyCollection<string> ApiScopes => [$"api://{ApiClientId}/user_impersonation"];
 }
 
-public sealed class MicrosoftIdentityPlatformOptionsValidator : AbstractValidator<MicrosoftIdentityPlatformOptions>
+public sealed class MicrosoftIdentityPlatformOptionsValidator : MicrosoftIdentityPlatformBaseOptionsValidator<MicrosoftIdentityPlatformOptions>
 {
-    public MicrosoftIdentityPlatformOptionsValidator()
+    public MicrosoftIdentityPlatformOptionsValidator() : base()
     {
-        RuleFor(options => options.TenantId)
-            .NotEmpty()
-            .Trimmed()
-            .Equal("consumers");
-
-        RuleFor(options => options.Instance)
-            .NotEmpty()
-            .Trimmed()
-            .Equal("https://login.microsoftonline.com");
-
-        RuleFor(options => options.ClientId)
+        RuleFor(options => options.ApiClientId)
             .NotEmpty()
             .Trimmed()
             .NonEmptyGuid();
 
-        RuleFor(options => options.ClientSecret)
+        RuleFor(options => options.CallbackPath)
             .NotEmpty()
             .Trimmed();
     }

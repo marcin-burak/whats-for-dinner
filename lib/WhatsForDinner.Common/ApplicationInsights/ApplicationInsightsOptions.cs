@@ -6,6 +6,8 @@ namespace WhatsForDinner.Common.ApplicationInsights;
 
 public sealed class ApplicationInsightsOptions
 {
+    public string CloudRoleName { get; set; } = string.Empty;
+
     public string ConnectionString { get; set; } = string.Empty;
 
     public bool DeveloperMode { get; set; }
@@ -15,6 +17,10 @@ public sealed class ApplicationInsightsOptionsValidator : AbstractValidator<Appl
 {
     public ApplicationInsightsOptionsValidator(IHostEnvironment environment)
     {
+        RuleFor(options => options.CloudRoleName)
+            .NotEmpty()
+            .Trimmed();
+
         RuleFor(options => options.ConnectionString)
             .NotEmpty()
             .Trimmed()

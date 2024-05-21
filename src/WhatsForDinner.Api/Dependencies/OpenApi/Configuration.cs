@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using WhatsForDinner.Api.Dependencies.MicrosoftIdentityPlatform;
 using WhatsForDinner.Common.Extensions;
 using WhatsForDinner.Common.FluentValidation;
-using WhatsForDinner.Web.Dependencies.Authentication;
 
-namespace WhatsForDinner.Web.Dependencies.OpenApi;
+namespace WhatsForDinner.Api.Dependencies.OpenApi;
 
 public sealed class OpenApiOptions
 {

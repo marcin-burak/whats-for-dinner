@@ -1,7 +1,8 @@
 ﻿using FluentValidation.TestHelper;
-using WhatsForDinner.Web.Dependencies.Authentication;
+using WhatsForDinner.Api.Dependencies.MicrosoftIdentityPlatform;
+using WhatsForDinner.Common.MicrosoftIdentityPlatform;
 
-namespace WhatsForDinner.Web.Tests.Dependencies.MicrosoftIdentityPlatform;
+namespace WhatsForDinner.Api.Tests.Dependencies.MicrosoftIdentityPlatform;
 
 public sealed class MicrosoftIdentityPlatformOptionsTests
 {

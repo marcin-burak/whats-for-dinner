@@ -12,6 +12,10 @@ public static class Rules
         .Must(value => string.IsNullOrWhiteSpace(value) is false && Guid.TryParse(value, out var guid) && guid != Guid.Empty)
         .WithMessage("{PropertyName} has to be a non empty GUID.");
 
+    public static IRuleBuilderOptions<T, string> AbsoluteHttpUri<T>(this IRuleBuilder<T, string> builder) => builder
+        .Must(value => string.IsNullOrWhiteSpace(value) is false && value.StartsWith("http://") && Uri.TryCreate(value, UriKind.Absolute, out var _))
+        .WithMessage("{PropertyName} has to be an absolute HTTP URI.");
+
     public static IRuleBuilderOptions<T, string> AbsoluteHttpsUri<T>(this IRuleBuilder<T, string> builder) => builder
         .Must(value => string.IsNullOrWhiteSpace(value) is false && value.StartsWith("https://") && Uri.TryCreate(value, UriKind.Absolute, out var _))
         .WithMessage("{PropertyName} has to be an absolute HTTPS URI.");

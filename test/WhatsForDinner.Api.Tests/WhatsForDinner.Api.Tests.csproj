@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\WhatsForDinner.Web\WhatsForDinner.Web.csproj" />
+    <ProjectReference Include="..\..\src\WhatsForDinner.Api\WhatsForDinner.Api.csproj" />
   </ItemGroup>
 
   <ItemGroup>

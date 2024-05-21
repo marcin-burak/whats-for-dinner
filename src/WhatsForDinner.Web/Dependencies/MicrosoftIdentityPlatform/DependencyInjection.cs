@@ -1,39 +1,55 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Identity.Web;
 using Microsoft.IdentityModel.JsonWebTokens;
 using WhatsForDinner.Common.Extensions;
 
-namespace WhatsForDinner.Web.Dependencies.Authentication;
+namespace WhatsForDinner.Web.Dependencies.MicrosoftIdentityPlatform;
 
-public static class DependencyInjection
+internal static class DependencyInjection
 {
-    public static IServiceCollection AddAuthenticationConfiguration(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddMicrosoftIdentityPlatformConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
         JsonWebTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-        services
+        return services
             .AddOptionsByConvention<MicrosoftIdentityPlatformOptions>()
-            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddMicrosoftIdentityWebApi(
-            jwtBearerOptions =>
+            .AddAuthorization(authorizationOptions =>
             {
-
-            },
+                authorizationOptions.FallbackPolicy = new AuthorizationPolicyBuilder(OpenIdConnectDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser()
+                    .RequireClaim("oid")
+                    .Build();
+            })
+            .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddMicrosoftIdentityWebApp(
             microsoftIdentityOptions =>
             {
-                var microsoftIdentityPlatformConfigurationSection = configuration.GetRequiredSection(nameof(MicrosoftIdentityPlatformOptions)[..^7]);
-                microsoftIdentityPlatformConfigurationSection.Bind(microsoftIdentityOptions);
+                var configurationSection = configuration.GetRequiredSection("MicrosoftIdentityPlatform");
+                configurationSection.Bind(microsoftIdentityOptions);
 
                 var microsoftIdentityPlatformOptions = configuration.GetOptionsByConvention<MicrosoftIdentityPlatformOptions>();
                 microsoftIdentityOptions.TenantId = microsoftIdentityPlatformOptions.TenantId;
                 microsoftIdentityOptions.Instance = microsoftIdentityPlatformOptions.Instance;
-            })
-                .EnableTokenAcquisitionToCallDownstreamApi(msalOptions => { })
-                .AddMicrosoftGraph()
-                .AddInMemoryTokenCaches()
-                .Services
-            .AddAuthorization();
 
-        return services;
+                microsoftIdentityOptions.Scope.Clear();
+                microsoftIdentityOptions.Scope.Add("openid");
+                microsoftIdentityOptions.Scope.Add("offline_access");
+
+                foreach (var scope in microsoftIdentityPlatformOptions.ApiScopes)
+                {
+                    microsoftIdentityOptions.Scope.Add(scope);
+                }
+
+                microsoftIdentityOptions.CallbackPath = microsoftIdentityPlatformOptions.CallbackPath;
+            },
+            cookieOptions =>
+            {
+                cookieOptions.Cookie.Name = "Authentication";
+            })
+            .EnableTokenAcquisitionToCallDownstreamApi()
+            .AddInMemoryTokenCaches()
+            .Services;
     }
 }

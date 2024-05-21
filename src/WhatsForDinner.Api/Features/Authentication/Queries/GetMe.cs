@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
+using WhatsForDinner.Common.Authentication;
 using WhatsForDinner.SqlServer;
-using WhatsForDinner.Web.Features.Common.Authentication;
 
-namespace WhatsForDinner.Web.Features.Authentication.Queries;
+namespace WhatsForDinner.Api.Features.Authentication.Queries;
 
 public static class GetMe
 {
@@ -17,7 +17,13 @@ public static class GetMe
                 response => TypedResults.Ok(response),
                 userNotFound => TypedResults.NotFound()
             );
-        }).RequireAuthorization();
+        })
+        .WithName("GetMe")
+        .WithDescription("Get current user data.")
+        .WithTags("user")
+        .Produces<GetMeResponse>()
+        .Produces(404)
+        .RequireAuthorization();
 
         return builder;
     }

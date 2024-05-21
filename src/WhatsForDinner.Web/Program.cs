@@ -1,31 +1,23 @@
-using System.Reflection;
 using WhatsForDinner.Common.ApplicationInsights;
-using WhatsForDinner.SqlServer;
-using WhatsForDinner.Web.Dependencies.Authentication;
-using WhatsForDinner.Web.Dependencies.OpenApi;
-using WhatsForDinner.Web.Features.Authentication.Queries;
-using WhatsForDinner.Web.Features.Common.Authentication;
+using WhatsForDinner.Common.Authentication;
+using WhatsForDinner.Web.Dependencies.MicrosoftIdentityPlatform;
+using WhatsForDinner.Web.Dependencies.Yarp;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddApplicationInsightsOptions()
-    .AddOpenApiConfiguration(builder.Configuration)
-    .AddSqlServerConfiguration(builder.Configuration)
-    .AddAuthenticationConfiguration(builder.Configuration)
-    .AddMediatR(options => options.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
-    .AddScoped<IAuthentication, Authentication>();
+    .AddApplicationInsightsOptions(services => services.AddApplicationInsightsTelemetry())
+    .AddAuthenticationContext()
+    .AddMicrosoftIdentityPlatformConfiguration(builder.Configuration)
+    .AddYarpConfiguration(builder.Configuration);
 
 var app = builder.Build();
 
-app
-    .UseHttpsRedirection()
-    .UseOpenApiWhenEnabled()
-    .UseAuthentication()
-    .UseAuthorization();
+app.UseHttpsRedirection();
 
-app.MapGetMeEndpoint();
+app.UseAuthentication();
+app.UseAuthorization();
 
-await DatabaseMigrations.RunMigrationsIfConfigured(app.Services, CancellationToken.None);
+app.MapReverseProxy();
 
 app.Run();
