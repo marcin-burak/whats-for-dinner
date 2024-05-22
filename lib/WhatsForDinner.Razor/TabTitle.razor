@@ -1,0 +1,13 @@
+﻿@if(ChildContent is null)
+{
+    <PageTitle>What's for dinner</PageTitle>
+}
+else
+{
+    <PageTitle>What's for dinner | @ChildContent</PageTitle>
+}
+
+@code {
+    [Parameter]
+    public required RenderFragment ChildContent { get; set; }
+}
