@@ -27,13 +27,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{B4FA431D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsForDinner.UserProvisioning.Console", "tools\WhatsForDinner.UserProvisioning.Console\WhatsForDinner.UserProvisioning.Console.csproj", "{3BBF7904-CBE6-40F7-866E-DE02C3ADB48C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsForDinner.Blazor", "src\WhatsForDinner.Blazor\WhatsForDinner.Blazor\WhatsForDinner.Blazor.csproj", "{AB8A5774-9369-49CC-8B39-DE81EABC0585}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsForDinner.Blazor", "src\WhatsForDinner.Blazor\WhatsForDinner.Blazor\WhatsForDinner.Blazor.csproj", "{AB8A5774-9369-49CC-8B39-DE81EABC0585}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsForDinner.Blazor.Client", "src\WhatsForDinner.Blazor\WhatsForDinner.Blazor.Client\WhatsForDinner.Blazor.Client.csproj", "{F57F3371-6AD0-48B7-9B94-1E8F412D8082}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsForDinner.Blazor.Client", "src\WhatsForDinner.Blazor\WhatsForDinner.Blazor.Client\WhatsForDinner.Blazor.Client.csproj", "{F57F3371-6AD0-48B7-9B94-1E8F412D8082}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsForDinner.Razor", "lib\WhatsForDinner.Razor\WhatsForDinner.Razor.csproj", "{35519B58-A742-4018-9D56-65C0BB21F852}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsForDinner.Api.Client", "lib\WhatsForDinner.Api.Client\WhatsForDinner.Api.Client.csproj", "{EF3E4E03-1FB5-4B1A-9143-FDE5EC53DFE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsForDinner.Api.Client", "lib\WhatsForDinner.Api.Client\WhatsForDinner.Api.Client.csproj", "{EF3E4E03-1FB5-4B1A-9143-FDE5EC53DFE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsForDinner.Razor", "lib\WhatsForDinner.Razor\WhatsForDinner.Razor\WhatsForDinner.Razor.csproj", "{5E851313-1FEA-4C1D-BB63-133EA8D23F18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,14 +81,14 @@ Global
 		{F57F3371-6AD0-48B7-9B94-1E8F412D8082}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F57F3371-6AD0-48B7-9B94-1E8F412D8082}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F57F3371-6AD0-48B7-9B94-1E8F412D8082}.Release|Any CPU.Build.0 = Release|Any CPU
-		{35519B58-A742-4018-9D56-65C0BB21F852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35519B58-A742-4018-9D56-65C0BB21F852}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35519B58-A742-4018-9D56-65C0BB21F852}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35519B58-A742-4018-9D56-65C0BB21F852}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EF3E4E03-1FB5-4B1A-9143-FDE5EC53DFE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EF3E4E03-1FB5-4B1A-9143-FDE5EC53DFE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF3E4E03-1FB5-4B1A-9143-FDE5EC53DFE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF3E4E03-1FB5-4B1A-9143-FDE5EC53DFE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E851313-1FEA-4C1D-BB63-133EA8D23F18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E851313-1FEA-4C1D-BB63-133EA8D23F18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E851313-1FEA-4C1D-BB63-133EA8D23F18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E851313-1FEA-4C1D-BB63-133EA8D23F18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,8 +103,8 @@ Global
 		{3BBF7904-CBE6-40F7-866E-DE02C3ADB48C} = {B4FA431D-4AD9-42E3-AAC8-D453DF5F53E0}
 		{AB8A5774-9369-49CC-8B39-DE81EABC0585} = {7511669B-CC93-45D5-8607-E10FE4A0FE5A}
 		{F57F3371-6AD0-48B7-9B94-1E8F412D8082} = {7511669B-CC93-45D5-8607-E10FE4A0FE5A}
-		{35519B58-A742-4018-9D56-65C0BB21F852} = {9A7CA85F-EBF5-4DFA-925F-4552372EE672}
 		{EF3E4E03-1FB5-4B1A-9143-FDE5EC53DFE4} = {9A7CA85F-EBF5-4DFA-925F-4552372EE672}
+		{5E851313-1FEA-4C1D-BB63-133EA8D23F18} = {9A7CA85F-EBF5-4DFA-925F-4552372EE672}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {98F69134-17CB-4BE4-8AF0-FF91CD6616FE}

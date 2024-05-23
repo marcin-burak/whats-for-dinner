@@ -1,3 +1,4 @@
+using Microsoft.FluentUI.AspNetCore.Components;
 using WhatsForDinner.Blazor.Components;
 using WhatsForDinner.Blazor.Dependencies.Api;
 using WhatsForDinner.Blazor.Dependencies.MicrosoftIdentityPlatform;
@@ -14,7 +15,8 @@ builder.Services
     .AddAuthenticationContext()
     .AddMicrosoftIdentityPlatformConfiguration(builder.Configuration)
     .AddYarpConfiguration(builder.Configuration)
-    .AddApiHttpClient();
+    .AddApiHttpClient()
+    .AddFluentUIComponents();
 
 var app = builder.Build();
 

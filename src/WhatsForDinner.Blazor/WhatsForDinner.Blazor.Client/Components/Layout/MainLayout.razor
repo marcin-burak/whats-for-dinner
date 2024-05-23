@@ -1,0 +1,68 @@
+﻿@inherits LayoutComponentBase
+@rendermode InteractiveWebAssembly
+@inject ApiClient _api
+@inject IDialogService _dialog
+
+<div>
+    <FluentMainLayout>
+        <Header>
+            <FluentStack VerticalAlignment="VerticalAlignment.Center">
+                <FluentStack VerticalAlignment="VerticalAlignment.Center">
+                    <FluentEmoji Value="@(new Emojis.FoodDrink.Color.Default.ForkAndKnifeWithPlate())" />
+                    <h3>What's for dinner</h3>
+                </FluentStack>
+                <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.Right">
+                    <FluentProfileMenu FullName="@CurrentUser?.DisplayName" EMail="@CurrentUser?.Email" Initials="MB" Style="min-width: 330px;">
+                        <HeaderTemplate></HeaderTemplate>
+                        <FooterTemplate>
+                            <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.Right">
+                                <FluentButton BackgroundColor="var(--error)">
+                                    <FluentIcon Value="@(new Icons.Regular.Size20.ArrowExit())" Color="Color.Custom" CustomColor="#FFFFFF" Slot="end" />
+                                    Wyloguj się
+                                </FluentButton>
+                            </FluentStack>
+                        </FooterTemplate>
+                    </FluentProfileMenu>
+                    <FluentIcon Value="@(new Icons.Regular.Size28.Settings())" Color="Color.Neutral" OnClick="OpenSettingsPanel" />
+                </FluentStack>
+            </FluentStack>
+        </Header>
+        <NavMenuContent>
+            <FluentNavLink Href="/" Text="Home">Home</FluentNavLink>
+        </NavMenuContent>
+        <Body>
+            <FluentBodyContent>
+                @Body
+            </FluentBodyContent>
+        </Body>
+    </FluentMainLayout>
+    <FluentToastProvider />
+    <FluentDialogProvider />
+    <FluentTooltipProvider />
+    <FluentMessageBarProvider />
+</div>
+
+
+@code
+{
+    public GetMeResponse? CurrentUser { get; set; }
+
+    private IDialogReference? _settingsPanelReference;
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentUser = await _api.GetMeAsync();
+    }
+
+    private async Task OpenSettingsPanel()
+    {
+        _settingsPanelReference = await _dialog.ShowPanelAsync<SettingsPanel>(new DialogParameters
+        {
+            Title = "Ustawienia",
+            PrimaryAction = null,
+            SecondaryAction = null
+        });
+
+        await _settingsPanelReference.Result;
+    }
+}

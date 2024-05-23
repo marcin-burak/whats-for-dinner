@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\lib\WhatsForDinner.Api.Client\WhatsForDinner.Api.Client.csproj" />
-    <ProjectReference Include="..\..\..\lib\WhatsForDinner.Razor\WhatsForDinner.Razor.csproj" />
+    <ProjectReference Include="..\..\..\lib\WhatsForDinner.Razor\WhatsForDinner.Razor\WhatsForDinner.Razor.csproj" />
   </ItemGroup>
 
 </Project>
