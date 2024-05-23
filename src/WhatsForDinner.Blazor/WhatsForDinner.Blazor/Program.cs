@@ -1,4 +1,5 @@
 using WhatsForDinner.Blazor.Components;
+using WhatsForDinner.Blazor.Dependencies.Api;
 using WhatsForDinner.Blazor.Dependencies.MicrosoftIdentityPlatform;
 using WhatsForDinner.Blazor.Dependencies.Yarp;
 using WhatsForDinner.Common.ApplicationInsights;
@@ -12,7 +13,8 @@ builder.Services
     .AddApplicationInsightsOptions(services => services.AddApplicationInsightsTelemetry())
     .AddAuthenticationContext()
     .AddMicrosoftIdentityPlatformConfiguration(builder.Configuration)
-    .AddYarpConfiguration(builder.Configuration);
+    .AddYarpConfiguration(builder.Configuration)
+    .AddApiHttpClient();
 
 var app = builder.Build();
 
