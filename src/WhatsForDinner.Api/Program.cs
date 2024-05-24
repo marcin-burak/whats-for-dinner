@@ -1,7 +1,7 @@
 using System.Reflection;
 using WhatsForDinner.Api.Dependencies.MicrosoftIdentityPlatform;
 using WhatsForDinner.Api.Dependencies.OpenApi;
-using WhatsForDinner.Api.Features.Authentication.Queries;
+using WhatsForDinner.Api.Features.Users.Queries;
 using WhatsForDinner.Common.ApplicationInsights;
 using WhatsForDinner.Common.Authentication;
 using WhatsForDinner.SqlServer;

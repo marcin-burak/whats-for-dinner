@@ -1,0 +1,11 @@
+﻿@page "/groups/{groupId:guid}/meals"
+
+<TabTitle>Posiłki</TabTitle>
+
+<span>Posiłki grupy @GroupId</span>
+
+@code
+{
+    [Parameter]
+    public required Guid GroupId { get; set; }
+}

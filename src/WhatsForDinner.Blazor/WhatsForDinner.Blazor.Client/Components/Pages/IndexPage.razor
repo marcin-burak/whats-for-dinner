@@ -1,0 +1,12 @@
+﻿@page "/"
+@inject ApiClient _api
+@inject NavigationManager _navigation
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        var currentUser = await _api.GetCurrentUserAsync();
+        _navigation.NavigateToSummary(currentUser.DefaultGroup.Id);
+    }
+}

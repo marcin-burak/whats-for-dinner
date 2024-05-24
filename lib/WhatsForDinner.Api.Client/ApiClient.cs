@@ -54,9 +54,9 @@ namespace WhatsForDinner.Api.HttpClient
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<GetMeResponse> GetMeAsync()
+        public virtual System.Threading.Tasks.Task<GetCurrentUserResponse> GetCurrentUserAsync()
         {
-            return GetMeAsync(System.Threading.CancellationToken.None);
+            return GetCurrentUserAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -65,7 +65,7 @@ namespace WhatsForDinner.Api.HttpClient
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<GetMeResponse> GetMeAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<GetCurrentUserResponse> GetCurrentUserAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -78,8 +78,8 @@ namespace WhatsForDinner.Api.HttpClient
 
                     var urlBuilder_ = new System.Text.StringBuilder();
 
-                    // Operation Path: "api/v1/me"
-                    urlBuilder_.Append("api/v1/me");
+                    // Operation Path: "api/v1/users/me"
+                    urlBuilder_.Append("api/v1/users/me");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -106,7 +106,7 @@ namespace WhatsForDinner.Api.HttpClient
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<GetMeResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<GetCurrentUserResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -252,7 +252,7 @@ namespace WhatsForDinner.Api.HttpClient
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetMeResponse
+    public partial class GetCurrentUserResponse
     {
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -266,14 +266,22 @@ namespace WhatsForDinner.Api.HttpClient
         [System.ComponentModel.DataAnnotations.Required]
         public string DisplayName { get; set; }
 
+        [Newtonsoft.Json.JsonProperty("initials", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public string Initials { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("defaultGroup", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public GetCurrentUserResponseGroup DefaultGroup { get; set; } = new GetCurrentUserResponseGroup();
+
         [Newtonsoft.Json.JsonProperty("groups", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<GetMeResponseGroup> Groups { get; set; } = new System.Collections.ObjectModel.Collection<GetMeResponseGroup>();
+        public System.Collections.Generic.ICollection<GetCurrentUserResponseGroup> Groups { get; set; } = new System.Collections.ObjectModel.Collection<GetCurrentUserResponseGroup>();
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetMeResponseGroup
+    public partial class GetCurrentUserResponseGroup
     {
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]

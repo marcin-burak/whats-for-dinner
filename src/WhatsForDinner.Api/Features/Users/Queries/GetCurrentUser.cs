@@ -4,24 +4,24 @@ using OneOf;
 using WhatsForDinner.Common.Authentication;
 using WhatsForDinner.SqlServer;
 
-namespace WhatsForDinner.Api.Features.Authentication.Queries;
+namespace WhatsForDinner.Api.Features.Users.Queries;
 
-public static class GetMe
+public static class GetCurrentUser
 {
     public static IEndpointRouteBuilder MapGetMeEndpoint(this IEndpointRouteBuilder builder)
     {
-        builder.MapGet("/api/v1/me", async (ISender sender, CancellationToken cancellationToken) =>
+        builder.MapGet("/api/v1/users/me", async (ISender sender, CancellationToken cancellationToken) =>
         {
-            var result = await sender.Send(new GetMeQuery(), cancellationToken);
+            var result = await sender.Send(new GetCurrentUserQuery(), cancellationToken);
             return result.Match<IResult>(
                 response => TypedResults.Ok(response),
                 userNotFound => TypedResults.NotFound()
             );
         })
-        .WithName("GetMe")
+        .WithName("GetCurrentUser")
         .WithDescription("Get current user data.")
         .WithTags("user")
-        .Produces<GetMeResponse>()
+        .Produces<GetCurrentUserResponse>()
         .Produces(404)
         .RequireAuthorization();
 
@@ -30,7 +30,7 @@ public static class GetMe
 
     #region Contracts
 
-    public sealed record GetMeResponse
+    public sealed record GetCurrentUserResponse
     {
         public required Guid Id { get; init; }
 
@@ -40,9 +40,11 @@ public static class GetMe
 
         public required string Initials { get; init; } = string.Empty;
 
-        public required IReadOnlyCollection<GetMeResponseGroup> Groups { get; init; } = [];
+        public required GetCurrentUserResponseGroup DefaultGroup { get; set; }
 
-        public sealed record GetMeResponseGroup
+        public required IReadOnlyCollection<GetCurrentUserResponseGroup> Groups { get; init; } = [];
+
+        public sealed record GetCurrentUserResponseGroup
         {
             public required Guid Id { get; init; }
 
@@ -60,18 +62,18 @@ public static class GetMe
 
     #region CQRS
 
-    public sealed class GetMeQuery : IRequest<OneOf<GetMeResponse, UserNotFound>> { }
+    public sealed class GetCurrentUserQuery : IRequest<OneOf<GetCurrentUserResponse, UserNotFound>> { }
 
-    public sealed class GetMeQueryHandler(
-        ILogger<GetMeQueryHandler> logger,
+    public sealed class GetCurrentUserQueryHandler(
+        ILogger<GetCurrentUserQueryHandler> logger,
         IAuthentication authentication,
-        DatabaseContext databaseContext) : IRequestHandler<GetMeQuery, OneOf<GetMeResponse, UserNotFound>>
+        DatabaseContext databaseContext) : IRequestHandler<GetCurrentUserQuery, OneOf<GetCurrentUserResponse, UserNotFound>>
     {
-        private readonly ILogger<GetMeQueryHandler> _logger = logger;
+        private readonly ILogger<GetCurrentUserQueryHandler> _logger = logger;
         private readonly IAuthentication _authentication = authentication;
         private readonly DatabaseContext _databaseContext = databaseContext;
 
-        public async Task<OneOf<GetMeResponse, UserNotFound>> Handle(GetMeQuery query, CancellationToken cancellationToken)
+        public async Task<OneOf<GetCurrentUserResponse, UserNotFound>> Handle(GetCurrentUserQuery query, CancellationToken cancellationToken)
         {
             var currentUserId = _authentication.GetCurrentUserId();
 
@@ -90,17 +92,20 @@ public static class GetMe
 
             _logger.LogInformation("Got current user data with ID '{CurrentUserId}'.", user.Id);
 
-            return new GetMeResponse
+            var groups = user.Groups.Select(group => new GetCurrentUserResponse.GetCurrentUserResponseGroup
+            {
+                Id = group.Id,
+                Name = group.Name
+            }).ToArray();
+
+            return new GetCurrentUserResponse
             {
                 Id = user.Id,
                 Email = user.Email,
                 DisplayName = user.FullName,
                 Initials = $"{user.FirstName.First()} {user.LastName.First()}",
-                Groups = user.Groups.Select(group => new GetMeResponse.GetMeResponseGroup
-                {
-                    Id = group.Id,
-                    Name = group.Name
-                }).ToArray()
+                DefaultGroup = groups.First(),
+                Groups = groups
             };
         }
     }

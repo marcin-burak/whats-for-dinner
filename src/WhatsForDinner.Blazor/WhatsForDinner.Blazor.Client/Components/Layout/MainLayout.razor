@@ -1,6 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @rendermode InteractiveWebAssembly
 @inject ApiClient _api
+@inject NavigationManager _navigation
 @inject IDialogService _dialog
 
 <div>
@@ -12,7 +13,7 @@
                     <h3>What's for dinner</h3>
                 </FluentStack>
                 <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.Right">
-                    <FluentProfileMenu FullName="@CurrentUser?.DisplayName" EMail="@CurrentUser?.Email" Initials="MB" Style="min-width: 330px;">
+                    <FluentProfileMenu FullName="@CurrentUser?.DisplayName" EMail="@CurrentUser?.Email" Initials="@CurrentUser?.Initials" Style="min-width: 330px;">
                         <HeaderTemplate></HeaderTemplate>
                         <FooterTemplate>
                             <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.Right">
@@ -30,7 +31,8 @@
             </FluentStack>
         </Header>
         <NavMenuContent>
-            <FluentNavLink Href="/" Text="Home">Home</FluentNavLink>
+            <FluentNavLink Href="@SummaryHref" Icon="@(new Icons.Regular.Size24.Home())">Podsumowanie</FluentNavLink>
+            <FluentNavLink Href="@MealsHref" Icon="@(new Icons.Regular.Size24.Food())">Posiłki</FluentNavLink>
         </NavMenuContent>
         <Body>
             <FluentBodyContent>
@@ -46,13 +48,17 @@
 
 @code
 {
-    public GetMeResponse? CurrentUser { get; set; }
+    public GetCurrentUserResponse? CurrentUser { get; set; }
 
     private IDialogReference? _settingsPanelReference;
 
+    private string SummaryHref => _navigation.GetSummaryHref(CurrentUser?.DefaultGroup.Id ?? default);
+
+    private string MealsHref => _navigation.GetMealsHref(CurrentUser?.DefaultGroup.Id ?? default);
+
     protected override async Task OnInitializedAsync()
     {
-        CurrentUser = await _api.GetMeAsync();
+        CurrentUser = await _api.GetCurrentUserAsync();
     }
 
     private async Task OpenSettingsPanel()
