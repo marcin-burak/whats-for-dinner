@@ -46,7 +46,9 @@ internal static class DependencyInjection
             },
             cookieOptions =>
             {
+                //https://joonasw.net/view/aad-single-sign-out-in-asp-net-core
                 cookieOptions.Cookie.Name = "Authentication";
+                cookieOptions.Cookie.SameSite = SameSiteMode.None;
             })
             .EnableTokenAcquisitionToCallDownstreamApi()
             .AddInMemoryTokenCaches()

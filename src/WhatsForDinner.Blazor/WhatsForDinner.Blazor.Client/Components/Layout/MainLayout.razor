@@ -16,10 +16,12 @@
                         <HeaderTemplate></HeaderTemplate>
                         <FooterTemplate>
                             <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.Right">
-                                <FluentButton BackgroundColor="var(--error)">
-                                    <FluentIcon Value="@(new Icons.Regular.Size20.ArrowExit())" Color="Color.Custom" CustomColor="#FFFFFF" Slot="end" />
-                                    Wyloguj się
-                                </FluentButton>
+                                <FluentAnchor Href="/.auth/signout" Appearance="Appearance.Hypertext">
+                                    <FluentButton BackgroundColor="var(--error)">
+                                        <FluentIcon Value="@(new Icons.Regular.Size20.ArrowExit())" Color="Color.Custom" CustomColor="#FFFFFF" Slot="end" />
+                                        Wyloguj się
+                                    </FluentButton>
+                                </FluentAnchor>
                             </FluentStack>
                         </FooterTemplate>
                     </FluentProfileMenu>
@@ -41,7 +43,6 @@
     <FluentTooltipProvider />
     <FluentMessageBarProvider />
 </div>
-
 
 @code
 {

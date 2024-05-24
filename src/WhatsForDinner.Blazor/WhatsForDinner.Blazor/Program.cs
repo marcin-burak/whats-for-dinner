@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Options;
 using Microsoft.FluentUI.AspNetCore.Components;
+using System.Security.Claims;
 using WhatsForDinner.Blazor.Components;
 using WhatsForDinner.Blazor.Dependencies.Api;
 using WhatsForDinner.Blazor.Dependencies.MicrosoftIdentityPlatform;
@@ -16,7 +19,11 @@ builder.Services
     .AddMicrosoftIdentityPlatformConfiguration(builder.Configuration)
     .AddYarpConfiguration(builder.Configuration)
     .AddApiHttpClient()
-    .AddFluentUIComponents();
+    .AddFluentUIComponents()
+    .AddAntiforgery(options =>
+    {
+        options.Cookie.Name = "Antiforgery";
+    });
 
 var app = builder.Build();
 
@@ -34,6 +41,20 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapGet("/.auth/signout", async (HttpContext httpContext, IOptions<MicrosoftIdentityPlatformOptions> msalOptions, CancellationToken cancellationToken) =>
+{
+    // Clear token cache also?
+    var logoutHint = httpContext.User.FindFirstValue("login_hint");
+    await httpContext.SignOutAsync();
+    return TypedResults.Redirect($"https://login.microsoftonline.com/consumers/oauth2/v2.0/logout?logout_hint={logoutHint}");
+});
+
+app.MapGet("/.auth/signout-oidc", async (HttpContext httpContext, CancellationToken cancellationToken) =>
+{
+    await httpContext.SignOutAsync();
+    return TypedResults.Ok();
+}).AllowAnonymous();
 
 app.UseStaticFiles();
 app.UseAntiforgery();

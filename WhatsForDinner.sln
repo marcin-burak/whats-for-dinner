@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsForDinner.Blazor.Clien
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsForDinner.Api.Client", "lib\WhatsForDinner.Api.Client\WhatsForDinner.Api.Client.csproj", "{EF3E4E03-1FB5-4B1A-9143-FDE5EC53DFE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsForDinner.Razor", "lib\WhatsForDinner.Razor\WhatsForDinner.Razor\WhatsForDinner.Razor.csproj", "{5E851313-1FEA-4C1D-BB63-133EA8D23F18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsForDinner.Razor", "lib\WhatsForDinner.Razor\WhatsForDinner.Razor\WhatsForDinner.Razor.csproj", "{5E851313-1FEA-4C1D-BB63-133EA8D23F18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

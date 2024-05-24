@@ -38,6 +38,8 @@ public static class GetMe
 
         public required string DisplayName { get; init; } = string.Empty;
 
+        public required string Initials { get; init; } = string.Empty;
+
         public required IReadOnlyCollection<GetMeResponseGroup> Groups { get; init; } = [];
 
         public sealed record GetMeResponseGroup
@@ -93,6 +95,7 @@ public static class GetMe
                 Id = user.Id,
                 Email = user.Email,
                 DisplayName = user.FullName,
+                Initials = $"{user.FirstName.First()} {user.LastName.First()}",
                 Groups = user.Groups.Select(group => new GetMeResponse.GetMeResponseGroup
                 {
                     Id = group.Id,
