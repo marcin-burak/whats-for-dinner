@@ -19,11 +19,9 @@ public static class GetCurrentUser
             );
         })
         .WithName("GetCurrentUser")
-        .WithDescription("Get current user data.")
-        .WithTags("user")
         .Produces<GetCurrentUserResponse>()
-        .Produces(404)
-        .RequireAuthorization();
+        .Produces(401)
+        .Produces(404);
 
         return builder;
     }
@@ -103,7 +101,7 @@ public static class GetCurrentUser
                 Id = user.Id,
                 Email = user.Email,
                 DisplayName = user.FullName,
-                Initials = $"{user.FirstName.First()} {user.LastName.First()}",
+                Initials = $"{user.FirstName.First()}{user.LastName.First()}",
                 DefaultGroup = groups.First(),
                 Groups = groups
             };

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Identity.Web;
 using Microsoft.IdentityModel.JsonWebTokens;
 using WhatsForDinner.Common.Extensions;
@@ -13,6 +14,13 @@ public static class DependencyInjection
 
         services
             .AddOptionsByConvention<MicrosoftIdentityPlatformOptions>()
+            .AddAuthorization(options =>
+            {
+                options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .RequireClaim("oid")
+                    .Build();
+            })
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddMicrosoftIdentityWebApi(
             jwtBearerOptions =>
@@ -28,11 +36,9 @@ public static class DependencyInjection
                 microsoftIdentityOptions.TenantId = microsoftIdentityPlatformOptions.TenantId;
                 microsoftIdentityOptions.Instance = microsoftIdentityPlatformOptions.Instance;
             })
-                .EnableTokenAcquisitionToCallDownstreamApi(msalOptions => { })
-                .AddMicrosoftGraph()
-                .AddInMemoryTokenCaches()
-                .Services
-            .AddAuthorization();
+            .EnableTokenAcquisitionToCallDownstreamApi(msalOptions => { })
+            .AddMicrosoftGraph()
+            .AddInMemoryTokenCaches();
 
         return services;
     }

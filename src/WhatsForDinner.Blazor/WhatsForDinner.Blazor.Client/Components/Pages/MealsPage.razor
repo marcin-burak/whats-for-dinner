@@ -1,11 +1,33 @@
 ﻿@page "/groups/{groupId:guid}/meals"
+@using System.Text.Json
+@inject ApiClient _api
 
 <TabTitle>Posiłki</TabTitle>
 
-<span>Posiłki grupy @GroupId</span>
+<header>
+    <FluentStack VerticalAlignment="VerticalAlignment.Center">
+        <h1>Posiłki</h1>
+        <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.Right">
+            <FluentButton Appearance="Appearance.Accent" IconStart="@(new Icons.Regular.Size20.AddCircle())">Dodaj posiłek</FluentButton>
+        </FluentStack>
+    </FluentStack>
+</header>
+<main>
+    <textarea height="800px" width="500px">
+        @(JsonSerializer.Serialize(Meals))
+    </textarea>
+</main>
 
 @code
 {
     [Parameter]
     public required Guid GroupId { get; set; }
+
+    private ICollection<ListMealsResponseMeal>? Meals { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await _api.ListMealsAsync(GroupId);
+        Meals = response.Meals;
+    }
 }
