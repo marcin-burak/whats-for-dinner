@@ -1,10 +1,23 @@
 {
   "profiles": {
-    "Docker Compose": {
+    "All": {
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "whatsfordinner.web": "StartDebugging"
+        "api": "StartDebugging",
+        "blazor": "StartDebugging",
+        "sql": "StartWithoutDebugging"
+      }
+    },
+    "Backend": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "None",
+      "composeLaunchServiceName": "api",
+      "serviceActions": {
+        "api": "StartDebugging",
+        "blazor": "DoNotStart",
+        "sql": "StartWithoutDebugging"
       }
     }
   }
