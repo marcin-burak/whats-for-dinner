@@ -4,5 +4,5 @@ namespace WhatsForDinner.Api.Policies;
 
 public interface IProblemDetailsResult
 {
-    ProblemDetails ToProblemDetails();
+	ProblemDetails ToProblemDetails();
 }

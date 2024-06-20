@@ -1,75 +1,74 @@
 ﻿using FluentValidation.TestHelper;
 using WhatsForDinner.Api.Dependencies.MicrosoftIdentityPlatform;
-using WhatsForDinner.Common.MicrosoftIdentityPlatform;
 
 namespace WhatsForDinner.Api.Tests.Dependencies.MicrosoftIdentityPlatform;
 
 public sealed class MicrosoftIdentityPlatformOptionsTests
 {
-    [Fact]
-    public void EnsureConstantValues()
-    {
-        MicrosoftIdentityPlatformOptions options = new();
+	[Fact]
+	public void EnsureConstantValues()
+	{
+		MicrosoftIdentityPlatformOptions options = new();
 
-        Assert.Equal("consumers", options.TenantId);
-        Assert.Equal("https://login.microsoftonline.com", options.Instance);
-    }
+		Assert.Equal("consumers", options.TenantId);
+		Assert.Equal("https://login.microsoftonline.com", options.Instance);
+	}
 
-    [Theory]
-    [MemberData(nameof(ValidOptions))]
-    public void OptionsValidationPasses(MicrosoftIdentityPlatformOptions options)
-    {
-        var result = new MicrosoftIdentityPlatformOptionsValidator().TestValidate(options);
-        result.ShouldNotHaveAnyValidationErrors();
-    }
+	[Theory]
+	[MemberData(nameof(ValidOptions))]
+	public void OptionsValidationPasses(MicrosoftIdentityPlatformOptions options)
+	{
+		var result = new MicrosoftIdentityPlatformOptionsValidator().TestValidate(options);
+		result.ShouldNotHaveAnyValidationErrors();
+	}
 
-    [Theory]
-    [MemberData(nameof(InvalidOptions))]
-    public void OptionsValidationFails(MicrosoftIdentityPlatformOptions options)
-    {
-        var result = new MicrosoftIdentityPlatformOptionsValidator().TestValidate(options);
-        result.ShouldHaveAnyValidationError();
-    }
+	[Theory]
+	[MemberData(nameof(InvalidOptions))]
+	public void OptionsValidationFails(MicrosoftIdentityPlatformOptions options)
+	{
+		var result = new MicrosoftIdentityPlatformOptionsValidator().TestValidate(options);
+		result.ShouldHaveAnyValidationError();
+	}
 
 
 
-    #region Test data
+	#region Test data
 
-    public static TheoryData<MicrosoftIdentityPlatformOptions> ValidOptions => new()
-    {
-        {
-            new()
-            {
-                ClientId = Guid.NewGuid().ToString(),
-                ClientSecret = "secret"
-            }
-        }
-    };
+	public static TheoryData<MicrosoftIdentityPlatformOptions> ValidOptions => new()
+	{
+		{
+			new()
+			{
+				ClientId = Guid.NewGuid().ToString(),
+				ClientSecret = "secret"
+			}
+		}
+	};
 
-    public static TheoryData<MicrosoftIdentityPlatformOptions> InvalidOptions => new()
-    {
-        {
-            new()
-            {
-                ClientId = null!,
-                ClientSecret = null!
-            }
-        },
-        {
-            new()
-            {
-                ClientId = "",
-                ClientSecret = ""
-            }
-        },
-        {
-            new()
-            {
-                ClientId = $" {Guid.NewGuid()} ",
-                ClientSecret = " secret "
-            }
-        },
-    };
+	public static TheoryData<MicrosoftIdentityPlatformOptions> InvalidOptions => new()
+	{
+		{
+			new()
+			{
+				ClientId = null!,
+				ClientSecret = null!
+			}
+		},
+		{
+			new()
+			{
+				ClientId = "",
+				ClientSecret = ""
+			}
+		},
+		{
+			new()
+			{
+				ClientId = $" {Guid.NewGuid()} ",
+				ClientSecret = " secret "
+			}
+		},
+	};
 
-    #endregion
+	#endregion
 }

@@ -7,17 +7,17 @@ namespace WhatsForDinner.Common.ApplicationInsights;
 
 public sealed class DefaultTelemetryInitializer(IOptions<ApplicationInsightsOptions> options, IHttpContextAccessor httpContextAccessor) : ITelemetryInitializer
 {
-    private readonly ApplicationInsightsOptions _options = options.Value;
-    private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
+	private readonly ApplicationInsightsOptions _options = options.Value;
+	private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
-    public void Initialize(ITelemetry telemetry)
-    {
-        telemetry.Context.Cloud.RoleName = _options.CloudRoleName;
+	public void Initialize(ITelemetry telemetry)
+	{
+		telemetry.Context.Cloud.RoleName = _options.CloudRoleName;
 
-        var currentUserId = _httpContextAccessor.HttpContext?.User?.Claims?.SingleOrDefault(claim => claim.Type == "oid")?.Value;
-        if (string.IsNullOrWhiteSpace(currentUserId) is false)
-        {
-            telemetry.Context.User.AuthenticatedUserId = currentUserId;
-        }
-    }
+		var currentUserId = _httpContextAccessor.HttpContext?.User?.Claims?.SingleOrDefault(claim => claim.Type == "oid")?.Value;
+		if (string.IsNullOrWhiteSpace(currentUserId) is false)
+		{
+			telemetry.Context.User.AuthenticatedUserId = currentUserId;
+		}
+	}
 }

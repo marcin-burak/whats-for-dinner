@@ -7,124 +7,124 @@ namespace WhatsForDinner.Api.Tests.Dependencies.OpenApi;
 
 public sealed class ConfigurationTests
 {
-    [Theory]
-    [MemberData(nameof(ValidOptions))]
-    public void ValidationSucceeds(OpenApiOptions options, IHostEnvironment environment)
-    {
-        OpenApiOptionsValidator validator = new(environment);
+	[Theory]
+	[MemberData(nameof(ValidOptions))]
+	public void ValidationSucceeds(OpenApiOptions options, IHostEnvironment environment)
+	{
+		OpenApiOptionsValidator validator = new(environment);
 
-        var result = validator.TestValidate(options);
+		var result = validator.TestValidate(options);
 
-        result.ShouldNotHaveAnyValidationErrors();
-    }
+		result.ShouldNotHaveAnyValidationErrors();
+	}
 
-    [Theory]
-    [MemberData(nameof(InvalidOptions))]
-    public void ValidationFails(OpenApiOptions options, IHostEnvironment environment)
-    {
-        OpenApiOptionsValidator validator = new(environment);
+	[Theory]
+	[MemberData(nameof(InvalidOptions))]
+	public void ValidationFails(OpenApiOptions options, IHostEnvironment environment)
+	{
+		OpenApiOptionsValidator validator = new(environment);
 
-        var result = validator.TestValidate(options);
+		var result = validator.TestValidate(options);
 
-        result.ShouldHaveAnyValidationError();
-    }
+		result.ShouldHaveAnyValidationError();
+	}
 
 
 
-    #region Test data
+	#region Test data
 
-    private static IHostEnvironment DevelopmentEnvironment
-    {
-        get
-        {
-            var mock = Substitute.For<IHostEnvironment>();
-            mock.EnvironmentName = "Development";
+	private static IHostEnvironment DevelopmentEnvironment
+	{
+		get
+		{
+			var mock = Substitute.For<IHostEnvironment>();
+			mock.EnvironmentName = "Development";
 
-            return mock;
-        }
-    }
+			return mock;
+		}
+	}
 
-    private static IHostEnvironment NonDevelopmentEnvironment
-    {
-        get
-        {
-            var mock = Substitute.For<IHostEnvironment>();
-            mock.EnvironmentName = "NonDevelopment";
+	private static IHostEnvironment NonDevelopmentEnvironment
+	{
+		get
+		{
+			var mock = Substitute.For<IHostEnvironment>();
+			mock.EnvironmentName = "NonDevelopment";
 
-            return mock;
-        }
-    }
+			return mock;
+		}
+	}
 
-    public static TheoryData<OpenApiOptions, IHostEnvironment> ValidOptions => new()
-    {
-        {
-            new()
-            {
-                Enabled = true,
-                ClientId = Guid.NewGuid().ToString()
-            },
-            DevelopmentEnvironment
-        },
-        {
-            new()
-            {
-                Enabled = false
-            },
-            NonDevelopmentEnvironment
-        },
-    };
+	public static TheoryData<OpenApiOptions, IHostEnvironment> ValidOptions => new()
+	{
+		{
+			new()
+			{
+				Enabled = true,
+				ClientId = Guid.NewGuid().ToString()
+			},
+			DevelopmentEnvironment
+		},
+		{
+			new()
+			{
+				Enabled = false
+			},
+			NonDevelopmentEnvironment
+		},
+	};
 
-    public static TheoryData<OpenApiOptions, IHostEnvironment> InvalidOptions => new()
-    {
-        {
-            new()
-            {
-                Enabled = true,
-                ClientId = Guid.NewGuid().ToString()
-            },
-            NonDevelopmentEnvironment
-        },
-        {
-            new()
-            {
-                Enabled = true,
-                ClientId = null
-            },
-            DevelopmentEnvironment
-        },
-        {
-            new()
-            {
-                Enabled = true,
-                ClientId = ""
-            },
-            DevelopmentEnvironment
-        },
-        {
-            new()
-            {
-                Enabled = true,
-                ClientId = " "
-            },
-            DevelopmentEnvironment
-        },
-        {
-            new()
-            {
-                Enabled = true,
-                ClientId = " 56cdbfba-6302-4298-b0f1-abfee04bb355 "
-            },
-            DevelopmentEnvironment
-        },
-        {
-            new()
-            {
-                Enabled = true,
-                ClientId = "56cdbfba-6302-4298-b0f1-abfee04bb"
-            },
-            DevelopmentEnvironment
-        },
-    };
+	public static TheoryData<OpenApiOptions, IHostEnvironment> InvalidOptions => new()
+	{
+		{
+			new()
+			{
+				Enabled = true,
+				ClientId = Guid.NewGuid().ToString()
+			},
+			NonDevelopmentEnvironment
+		},
+		{
+			new()
+			{
+				Enabled = true,
+				ClientId = null
+			},
+			DevelopmentEnvironment
+		},
+		{
+			new()
+			{
+				Enabled = true,
+				ClientId = ""
+			},
+			DevelopmentEnvironment
+		},
+		{
+			new()
+			{
+				Enabled = true,
+				ClientId = " "
+			},
+			DevelopmentEnvironment
+		},
+		{
+			new()
+			{
+				Enabled = true,
+				ClientId = " 56cdbfba-6302-4298-b0f1-abfee04bb355 "
+			},
+			DevelopmentEnvironment
+		},
+		{
+			new()
+			{
+				Enabled = true,
+				ClientId = "56cdbfba-6302-4298-b0f1-abfee04bb"
+			},
+			DevelopmentEnvironment
+		},
+	};
 
-    #endregion
+	#endregion
 }

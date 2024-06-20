@@ -4,38 +4,38 @@ namespace WhatsForDinner.Common.Authentication;
 
 public interface IAuthentication
 {
-    Guid GetCurrentUserId();
+	Guid GetCurrentUserId();
 
-    Guid? TryGetCurrentUserId();
+	Guid? TryGetCurrentUserId();
 }
 
 public sealed class Authentication : IAuthentication
 {
-    private readonly Guid? _currentUserId;
+	private readonly Guid? _currentUserId;
 
-    public Authentication(IHttpContextAccessor httpContextAccessor)
-    {
-        if (httpContextAccessor.HttpContext?.User is null)
-        {
-            return;
-        }
+	public Authentication(IHttpContextAccessor httpContextAccessor)
+	{
+		if (httpContextAccessor.HttpContext?.User is null)
+		{
+			return;
+		}
 
-        var oidClaimStringValue = httpContextAccessor.HttpContext.User.FindFirst("oid")?.Value;
-        if (Guid.TryParse(oidClaimStringValue, out var oidClaimValue))
-        {
-            _currentUserId = oidClaimValue;
-        }
-    }
+		var oidClaimStringValue = httpContextAccessor.HttpContext.User.FindFirst("oid")?.Value;
+		if (Guid.TryParse(oidClaimStringValue, out var oidClaimValue))
+		{
+			_currentUserId = oidClaimValue;
+		}
+	}
 
-    public Guid GetCurrentUserId()
-    {
-        if (_currentUserId.HasValue is false)
-        {
-            throw new InvalidOperationException("Failed to obtain current user ID.");
-        }
+	public Guid GetCurrentUserId()
+	{
+		if (_currentUserId.HasValue is false)
+		{
+			throw new InvalidOperationException("Failed to obtain current user ID.");
+		}
 
-        return _currentUserId.Value;
-    }
+		return _currentUserId.Value;
+	}
 
-    public Guid? TryGetCurrentUserId() => _currentUserId;
+	public Guid? TryGetCurrentUserId() => _currentUserId;
 }

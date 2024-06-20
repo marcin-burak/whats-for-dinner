@@ -6,5 +6,5 @@ public sealed class MicrosoftIdentityPlatformOptions : MicrosoftIdentityPlatform
 
 public sealed class MicrosoftIdentityPlatformOptionsValidator : MicrosoftIdentityPlatformBaseOptionsValidator<MicrosoftIdentityPlatformOptions>
 {
-    public MicrosoftIdentityPlatformOptionsValidator() : base() { }
+	public MicrosoftIdentityPlatformOptionsValidator() : base() { }
 }

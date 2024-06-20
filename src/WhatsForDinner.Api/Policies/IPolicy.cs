@@ -2,5 +2,5 @@
 
 public interface IPolicy<TInput, TOutput>
 {
-    TOutput Enforce(TInput input);
+	TOutput Enforce(TInput input);
 }

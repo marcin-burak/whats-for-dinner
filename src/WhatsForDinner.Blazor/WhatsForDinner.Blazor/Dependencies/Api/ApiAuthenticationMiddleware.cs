@@ -8,23 +8,23 @@ namespace WhatsForDinner.Blazor.Dependencies.Api;
 
 public sealed class ApiAuthenticationMiddleware(IOptions<MicrosoftIdentityPlatformOptions> options, ITokenAcquisition msal) : DelegatingHandler
 {
-    private readonly MicrosoftIdentityPlatformOptions _options = options.Value;
-    private readonly ITokenAcquisition _msal = msal;
+	private readonly MicrosoftIdentityPlatformOptions _options = options.Value;
+	private readonly ITokenAcquisition _msal = msal;
 
 
-    protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-    {
-        var userApiAccessToken = await _msal.GetAccessTokenForUserAsync(
-            scopes: _options.ApiScopes,
-            authenticationScheme: OpenIdConnectDefaults.AuthenticationScheme,
-            tokenAcquisitionOptions: new()
-            {
-                CancellationToken = cancellationToken
-            }
-        );
+	protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+	{
+		var userApiAccessToken = await _msal.GetAccessTokenForUserAsync(
+			scopes: _options.ApiScopes,
+			authenticationScheme: OpenIdConnectDefaults.AuthenticationScheme,
+			tokenAcquisitionOptions: new()
+			{
+				CancellationToken = cancellationToken
+			}
+		);
 
-        request.Headers.Authorization = new(JwtBearerDefaults.AuthenticationScheme, userApiAccessToken);
+		request.Headers.Authorization = new(JwtBearerDefaults.AuthenticationScheme, userApiAccessToken);
 
-        return await base.SendAsync(request, cancellationToken);
-    }
+		return await base.SendAsync(request, cancellationToken);
+	}
 }

@@ -14,10 +14,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsForDinner.SqlServer", "lib\WhatsForDinner.SqlServer\WhatsForDinner.SqlServer.csproj", "{956024DA-52CA-444A-A362-1771C23EC280}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{056DE73E-CB93-4BFE-9F8E-391966FD28A6}"
+	ProjectSection(SolutionItems) = preProject
+		test\Directory.Build.props = test\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsForDinner.Common.Tests", "test\WhatsForDinner.Common.Tests\WhatsForDinner.Common.Tests.csproj", "{12003265-3330-4FF6-A3FD-AFC0F25E68AB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsForDinner.Api.Tests", "test\WhatsForDinner.Api.Tests\WhatsForDinner.Api.Tests.csproj", "{D31954A7-2194-45C2-9ECE-E96BF4B62428}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{FCB504A4-D6A9-4FB5-8707-209B13A63B2F}"
 EndProject
@@ -37,8 +38,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsForDinner.Razor", "lib
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{26C45AF7-264D-4687-9D42-61D031314F3A}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
+		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsForDinner.Api.Tests", "test\WhatsForDinner.Api.Tests\WhatsForDinner.Api.Tests.csproj", "{DE1BB404-4CC1-40EF-85F6-5FB6FE8E0A90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,10 +68,6 @@ Global
 		{12003265-3330-4FF6-A3FD-AFC0F25E68AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12003265-3330-4FF6-A3FD-AFC0F25E68AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12003265-3330-4FF6-A3FD-AFC0F25E68AB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D31954A7-2194-45C2-9ECE-E96BF4B62428}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D31954A7-2194-45C2-9ECE-E96BF4B62428}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D31954A7-2194-45C2-9ECE-E96BF4B62428}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D31954A7-2194-45C2-9ECE-E96BF4B62428}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FCB504A4-D6A9-4FB5-8707-209B13A63B2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FCB504A4-D6A9-4FB5-8707-209B13A63B2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCB504A4-D6A9-4FB5-8707-209B13A63B2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -94,6 +96,10 @@ Global
 		{5E851313-1FEA-4C1D-BB63-133EA8D23F18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E851313-1FEA-4C1D-BB63-133EA8D23F18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E851313-1FEA-4C1D-BB63-133EA8D23F18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE1BB404-4CC1-40EF-85F6-5FB6FE8E0A90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE1BB404-4CC1-40EF-85F6-5FB6FE8E0A90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE1BB404-4CC1-40EF-85F6-5FB6FE8E0A90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE1BB404-4CC1-40EF-85F6-5FB6FE8E0A90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,13 +109,13 @@ Global
 		{A820455F-7EAC-423A-9170-BFE950795F03} = {9A7CA85F-EBF5-4DFA-925F-4552372EE672}
 		{956024DA-52CA-444A-A362-1771C23EC280} = {9A7CA85F-EBF5-4DFA-925F-4552372EE672}
 		{12003265-3330-4FF6-A3FD-AFC0F25E68AB} = {056DE73E-CB93-4BFE-9F8E-391966FD28A6}
-		{D31954A7-2194-45C2-9ECE-E96BF4B62428} = {056DE73E-CB93-4BFE-9F8E-391966FD28A6}
 		{302ABD82-8E52-440A-8AC4-10944A9B48F1} = {056DE73E-CB93-4BFE-9F8E-391966FD28A6}
 		{3BBF7904-CBE6-40F7-866E-DE02C3ADB48C} = {B4FA431D-4AD9-42E3-AAC8-D453DF5F53E0}
 		{AB8A5774-9369-49CC-8B39-DE81EABC0585} = {7511669B-CC93-45D5-8607-E10FE4A0FE5A}
 		{F57F3371-6AD0-48B7-9B94-1E8F412D8082} = {7511669B-CC93-45D5-8607-E10FE4A0FE5A}
 		{EF3E4E03-1FB5-4B1A-9143-FDE5EC53DFE4} = {9A7CA85F-EBF5-4DFA-925F-4552372EE672}
 		{5E851313-1FEA-4C1D-BB63-133EA8D23F18} = {9A7CA85F-EBF5-4DFA-925F-4552372EE672}
+		{DE1BB404-4CC1-40EF-85F6-5FB6FE8E0A90} = {056DE73E-CB93-4BFE-9F8E-391966FD28A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {98F69134-17CB-4BE4-8AF0-FF91CD6616FE}

@@ -6,34 +6,34 @@ namespace WhatsForDinner.Common.ApplicationInsights;
 
 public sealed class ApplicationInsightsOptions
 {
-    public string CloudRoleName { get; set; } = string.Empty;
+	public string CloudRoleName { get; set; } = string.Empty;
 
-    public string ConnectionString { get; set; } = string.Empty;
+	public string ConnectionString { get; set; } = string.Empty;
 
-    public bool DeveloperMode { get; set; }
+	public bool DeveloperMode { get; set; }
 }
 
 public sealed class ApplicationInsightsOptionsValidator : AbstractValidator<ApplicationInsightsOptions>
 {
-    public ApplicationInsightsOptionsValidator(IHostEnvironment environment)
-    {
-        RuleFor(options => options.CloudRoleName)
-            .NotEmpty()
-            .Trimmed();
+	public ApplicationInsightsOptionsValidator(IHostEnvironment environment)
+	{
+		RuleFor(options => options.CloudRoleName)
+			.NotEmpty()
+			.Trimmed();
 
-        RuleFor(options => options.ConnectionString)
-            .NotEmpty()
-            .Trimmed()
-            .Must(connectionString => string.IsNullOrWhiteSpace(connectionString) is false && connectionString.Contains("IngestionKey="))
-                .WithMessage("{PropertyName} has to contain ingestion key.")
-            .WithName("Application Insights connection string");
+		RuleFor(options => options.ConnectionString)
+			.NotEmpty()
+			.Trimmed()
+			.Must(connectionString => string.IsNullOrWhiteSpace(connectionString) is false && connectionString.Contains("IngestionKey="))
+				.WithMessage("{PropertyName} has to contain ingestion key.")
+			.WithName("Application Insights connection string");
 
-        When(_ => environment.IsDevelopment() is false, () =>
-        {
-            RuleFor(options => options.DeveloperMode)
-                .Equal(false)
-                    .WithMessage("{PropertyName} has to be disabled in non-development environments.")
-                .WithName("Application Insights developer mode");
-        });
-    }
+		When(_ => environment.IsDevelopment() is false, () =>
+		{
+			RuleFor(options => options.DeveloperMode)
+				.Equal(false)
+					.WithMessage("{PropertyName} has to be disabled in non-development environments.")
+				.WithName("Application Insights developer mode");
+		});
+	}
 }

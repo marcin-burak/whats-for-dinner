@@ -8,9 +8,9 @@ using WhatsForDinner.UserProvisioning.Console;
 var builder = Host.CreateApplicationBuilder();
 
 builder.Services
-    .AddSqlServerConfiguration(builder.Configuration)
-    .AddOptionsByConvention<ProvisioningOptions>()
-    .AddScoped<UserProvisioning>();
+	.AddSqlServerConfiguration(builder.Configuration)
+	.AddOptionsByConvention<ProvisioningOptions>()
+	.AddScoped<UserProvisioning>();
 
 var app = builder.Build();
 
