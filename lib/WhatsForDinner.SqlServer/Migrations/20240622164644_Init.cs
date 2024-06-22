@@ -39,6 +39,30 @@ namespace WhatsForDinner.SqlServer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Ingredient",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ingredient", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Unit",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Unit", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -131,6 +155,26 @@ namespace WhatsForDinner.SqlServer.Migrations
                     { "MEDIUM", "Średni" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "Ingredient",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { "FLOUR", "Mąka" },
+                    { "MILK", "Mleko" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Unit",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { "GRAM", "g" },
+                    { "MILILITER", "ml" },
+                    { "SPOON", "łyżeczka" },
+                    { "TABLE_SPOON", "łyżka stołowa" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Meal_CreatedById",
                 table: "Meal",
@@ -161,10 +205,16 @@ namespace WhatsForDinner.SqlServer.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Ingredient");
+
+            migrationBuilder.DropTable(
                 name: "Meal");
 
             migrationBuilder.DropTable(
                 name: "Membership");
+
+            migrationBuilder.DropTable(
+                name: "Unit");
 
             migrationBuilder.DropTable(
                 name: "Effort");

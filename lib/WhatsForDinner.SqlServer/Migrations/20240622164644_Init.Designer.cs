@@ -12,7 +12,7 @@ using WhatsForDinner.SqlServer;
 namespace WhatsForDinner.SqlServer.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240622161125_Init")]
+    [Migration("20240622164644_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -75,6 +75,34 @@ namespace WhatsForDinner.SqlServer.Migrations
                     b.ToTable("Group");
                 });
 
+            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Ingredient", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ingredient");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "MILK",
+                            Name = "Mleko"
+                        },
+                        new
+                        {
+                            Id = "FLOUR",
+                            Name = "Mąka"
+                        });
+                });
+
             modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Meal", b =>
                 {
                     b.Property<Guid>("Id")
@@ -134,6 +162,44 @@ namespace WhatsForDinner.SqlServer.Migrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("Membership");
+                });
+
+            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Unit", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Unit");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "GRAM",
+                            Name = "g"
+                        },
+                        new
+                        {
+                            Id = "MILILITER",
+                            Name = "ml"
+                        },
+                        new
+                        {
+                            Id = "TABLE_SPOON",
+                            Name = "łyżka stołowa"
+                        },
+                        new
+                        {
+                            Id = "SPOON",
+                            Name = "łyżeczka"
+                        });
                 });
 
             modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.User", b =>

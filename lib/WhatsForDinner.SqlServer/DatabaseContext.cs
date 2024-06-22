@@ -13,6 +13,12 @@ public sealed class DatabaseContext(DbContextOptions<DatabaseContext> options) :
 
 	public DbSet<Meal> Meal { get; set; }
 
+	public DbSet<Effort> Effort { get; set; }
+
+	public DbSet<Ingredient> Ingredient { get; set; }
+
+	public DbSet<Unit> Unit { get; set; }
+
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
 		base.OnModelCreating(builder);
