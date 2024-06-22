@@ -20,13 +20,9 @@ public static class ListMeals
 				userNotGroupMember => TypedResults.Problem(userNotGroupMember.ToProblemDetails())
 			);
 		})
-		.WithOpenApi(options =>
-		{
-			options.OperationId = "list-group-meals";
-			options.Summary = "List group meals.";
-			options.Description = "List group meals.";
-			return options;
-		})
+		.WithName("list-group-meals")
+		.WithSummary("List group meals.")
+		.WithDescription("List all group meals.")
 		.Produces<ListMealsResponse>()
 		.Produces(401)
 		.Produces(403)

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using WhatsForDinner.Api.Dependencies.MicrosoftIdentityPlatform;
 using WhatsForDinner.Common.Extensions;
 using WhatsForDinner.Common.FluentValidation;
@@ -46,10 +47,11 @@ public static class Configuration
 		if (openApiOptions.Enabled)
 		{
 			services
-				.AddEndpointsApiExplorer()
-				//.AddTransient<IConfigureOptions<SwaggerGenOptions>, SwaggerApiVersioningConfiguration>()
+				.AddTransient<IConfigureOptions<SwaggerGenOptions>, ApiVersioning>()
 				.AddSwaggerGen(options =>
 				{
+					options.OperationFilter<SwaggerDefaultValues>();
+
 					const string securityDefinitionKey = "Microsoft Identity Platform";
 					var microsoftIdentityPlatformOptions = configuration.GetOptionsByConvention<MicrosoftIdentityPlatformOptions>();
 
@@ -90,9 +92,10 @@ public static class Configuration
 		return services;
 	}
 
-	public static IApplicationBuilder UseOpenApiWhenEnabled(this IApplicationBuilder application)
+	public static IApplicationBuilder UseOpenApiWhenEnabled(this IApplicationBuilder app)
 	{
-		var openApiOptions = application.ApplicationServices.GetRequiredService<IOptions<OpenApiOptions>>().Value;
+		var application = app as WebApplication ?? throw new InvalidOperationException($"Failed to cast '{nameof(IApplicationBuilder)}' to '{nameof(WebApplication)}'.");
+		var openApiOptions = application.Services.GetRequiredService<IOptions<OpenApiOptions>>().Value;
 		if (openApiOptions.Enabled)
 		{
 			application
@@ -103,6 +106,13 @@ public static class Configuration
 					options.OAuthUsePkce();
 					options.EnablePersistAuthorization();
 					options.EnableTryItOutByDefault();
+
+					foreach (var description in application.DescribeApiVersions())
+					{
+						options.SwaggerEndpoint(
+							$"/swagger/{description.GroupName}/swagger.json",
+							description.GroupName);
+					}
 				});
 		}
 

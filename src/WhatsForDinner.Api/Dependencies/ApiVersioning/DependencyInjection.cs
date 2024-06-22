@@ -3,6 +3,7 @@
 internal static class DependencyInjection
 {
 	public static IServiceCollection AddApiVersioningConfiguration(this IServiceCollection services) => services
-		.AddApiVersioning()
+		.AddEndpointsApiExplorer()
+		.AddApiVersioning().AddApiExplorer()
 		.Services;
 }

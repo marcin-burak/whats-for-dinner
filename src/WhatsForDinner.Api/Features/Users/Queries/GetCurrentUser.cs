@@ -18,13 +18,9 @@ public static class GetCurrentUser
 				userNotFound => TypedResults.NotFound()
 			);
 		})
-		.WithOpenApi(options =>
-		{
-			options.OperationId = "get-current-user";
-			options.Summary = "Get current user data.";
-			options.Description = "Get the currently signed in user data.";
-			return options;
-		})
+		.WithName("get-current-user")
+		.WithSummary("Get current user data.")
+		.WithDescription("Get the currently signed in user data.")
 		.Produces<GetCurrentUserResponse>()
 		.Produces(401)
 		.Produces(404)
