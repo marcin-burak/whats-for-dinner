@@ -17,10 +17,43 @@ namespace WhatsForDinner.SqlServer.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Effort", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Effort");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "LOW",
+                            Name = "Niski"
+                        },
+                        new
+                        {
+                            Id = "MEDIUM",
+                            Name = "Średni"
+                        },
+                        new
+                        {
+                            Id = "HIGH",
+                            Name = "Wysoki"
+                        });
+                });
 
             modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Group", b =>
                 {
@@ -51,6 +84,10 @@ namespace WhatsForDinner.SqlServer.Migrations
                     b.Property<Guid>("CreatedById")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("EffortId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(6)");
+
                     b.Property<Guid>("GroupId")
                         .HasColumnType("uniqueidentifier");
 
@@ -69,6 +106,8 @@ namespace WhatsForDinner.SqlServer.Migrations
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
 
                     b.HasIndex("CreatedById");
+
+                    b.HasIndex("EffortId");
 
                     b.HasIndex("GroupId");
 
@@ -135,6 +174,12 @@ namespace WhatsForDinner.SqlServer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WhatsForDinner.SqlServer.Entities.Effort", "Effort")
+                        .WithMany("Meals")
+                        .HasForeignKey("EffortId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WhatsForDinner.SqlServer.Entities.Group", "Group")
                         .WithMany("Meals")
                         .HasForeignKey("GroupId")
@@ -146,6 +191,8 @@ namespace WhatsForDinner.SqlServer.Migrations
                         .HasForeignKey("ModifiedById");
 
                     b.Navigation("CreatedBy");
+
+                    b.Navigation("Effort");
 
                     b.Navigation("Group");
 
@@ -169,6 +216,11 @@ namespace WhatsForDinner.SqlServer.Migrations
                     b.Navigation("Group");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Effort", b =>
+                {
+                    b.Navigation("Meals");
                 });
 
             modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Group", b =>

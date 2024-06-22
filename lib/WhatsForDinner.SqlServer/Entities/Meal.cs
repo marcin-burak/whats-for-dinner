@@ -10,6 +10,13 @@ public sealed class Meal
 	public string Name { get; set; } = string.Empty;
 
 
+
+	public string EffortId { get; set; } = string.Empty;
+
+	public Effort Effort { get; set; } = null!;
+
+
+
 	public Guid GroupId { get; set; }
 
 	public Group Group { get; set; } = null!;
