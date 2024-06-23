@@ -17,6 +17,8 @@ public sealed class Meal
 
 
 
+	public List<string> Links { get; set; } = [];
+
 	public List<MealIngredient> Ingredients { get; set; } = [];
 
 	public List<string> RecipeSteps { get; set; } = [];

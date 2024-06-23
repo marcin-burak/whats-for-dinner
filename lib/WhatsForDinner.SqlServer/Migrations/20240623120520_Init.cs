@@ -85,6 +85,7 @@ namespace WhatsForDinner.SqlServer.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EffortId = table.Column<string>(type: "nvarchar(6)", nullable: false),
+                    Links = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RecipeSteps = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
