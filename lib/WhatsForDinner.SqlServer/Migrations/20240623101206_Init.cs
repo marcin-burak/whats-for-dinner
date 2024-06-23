@@ -154,7 +154,7 @@ namespace WhatsForDinner.SqlServer.Migrations
                     IngredientId = table.Column<string>(type: "nvarchar(20)", nullable: false),
                     UnitId = table.Column<string>(type: "nvarchar(11)", nullable: false),
                     Amount = table.Column<int>(type: "int", nullable: false),
-                    Order = table.Column<int>(type: "int", nullable: false)
+                    Order = table.Column<byte>(type: "tinyint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -177,6 +177,27 @@ namespace WhatsForDinner.SqlServer.Migrations
                         name: "FK_MealIngredient_Unit_UnitId",
                         column: x => x.UnitId,
                         principalTable: "Unit",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RecipeStep",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Number = table.Column<byte>(type: "tinyint", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    MealId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RecipeStep", x => x.Id)
+                        .Annotation("SqlServer:Clustered", false);
+                    table.ForeignKey(
+                        name: "FK_RecipeStep_Meal_MealId",
+                        column: x => x.MealId,
+                        principalTable: "Meal",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -245,6 +266,11 @@ namespace WhatsForDinner.SqlServer.Migrations
                 name: "IX_Membership_GroupId",
                 table: "Membership",
                 column: "GroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RecipeStep_MealId",
+                table: "RecipeStep",
+                column: "MealId");
         }
 
         /// <inheritdoc />
@@ -257,13 +283,16 @@ namespace WhatsForDinner.SqlServer.Migrations
                 name: "Membership");
 
             migrationBuilder.DropTable(
+                name: "RecipeStep");
+
+            migrationBuilder.DropTable(
                 name: "Ingredient");
 
             migrationBuilder.DropTable(
-                name: "Meal");
+                name: "Unit");
 
             migrationBuilder.DropTable(
-                name: "Unit");
+                name: "Meal");
 
             migrationBuilder.DropTable(
                 name: "Effort");

@@ -21,6 +21,8 @@ public sealed class DatabaseContext(DbContextOptions<DatabaseContext> options) :
 
 	public DbSet<MealIngredient> MealIngredient { get; set; }
 
+	public DbSet<RecipeStep> RecipeStep { get; set; }
+
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
 		base.OnModelCreating(builder);

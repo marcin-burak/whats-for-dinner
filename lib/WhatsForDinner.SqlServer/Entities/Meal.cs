@@ -19,6 +19,8 @@ public sealed class Meal
 
 	public List<MealIngredient> Ingredients { get; set; } = [];
 
+	public List<RecipeStep> RecipeSteps { get; set; } = [];
+
 
 
 	public Guid GroupId { get; set; }

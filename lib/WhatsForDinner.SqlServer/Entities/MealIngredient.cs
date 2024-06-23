@@ -19,9 +19,9 @@ public sealed class MealIngredient
 
 	public Unit Unit { get; set; } = null!;
 
-	public int Amount { get; set; }
+	public ushort Amount { get; set; }
 
-	public int Order { get; set; }
+	public byte Order { get; set; }
 }
 
 internal sealed class MealIngredientConfiguration : IEntityTypeConfiguration<MealIngredient>

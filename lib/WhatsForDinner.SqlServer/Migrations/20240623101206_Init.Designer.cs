@@ -12,7 +12,7 @@ using WhatsForDinner.SqlServer;
 namespace WhatsForDinner.SqlServer.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240623095346_Init")]
+    [Migration("20240623101206_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -163,8 +163,8 @@ namespace WhatsForDinner.SqlServer.Migrations
                     b.Property<Guid>("MealId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
+                    b.Property<byte>("Order")
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("UnitId")
                         .IsRequired()
@@ -198,6 +198,32 @@ namespace WhatsForDinner.SqlServer.Migrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("Membership");
+                });
+
+            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.RecipeStep", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid>("MealId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte>("Number")
+                        .HasColumnType("tinyint");
+
+                    b.HasKey("Id");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
+
+                    b.HasIndex("MealId");
+
+                    b.ToTable("RecipeStep");
                 });
 
             modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Unit", b =>
@@ -350,6 +376,17 @@ namespace WhatsForDinner.SqlServer.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.RecipeStep", b =>
+                {
+                    b.HasOne("WhatsForDinner.SqlServer.Entities.Meal", "Meal")
+                        .WithMany("RecipeSteps")
+                        .HasForeignKey("MealId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Meal");
+                });
+
             modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Effort", b =>
                 {
                     b.Navigation("Meals");
@@ -370,6 +407,8 @@ namespace WhatsForDinner.SqlServer.Migrations
             modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Meal", b =>
                 {
                     b.Navigation("Ingredients");
+
+                    b.Navigation("RecipeSteps");
                 });
 
             modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Unit", b =>
