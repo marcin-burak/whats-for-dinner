@@ -12,7 +12,7 @@ using WhatsForDinner.SqlServer;
 namespace WhatsForDinner.SqlServer.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240622164644_Init")]
+    [Migration("20240623095346_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -147,6 +147,42 @@ namespace WhatsForDinner.SqlServer.Migrations
                     b.ToTable("Meal");
                 });
 
+            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.MealIngredient", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IngredientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<Guid>("MealId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UnitId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(11)");
+
+                    b.HasKey("Id");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
+
+                    b.HasAlternateKey("MealId", "IngredientId", "UnitId");
+
+                    b.HasIndex("IngredientId");
+
+                    b.HasIndex("UnitId");
+
+                    b.ToTable("MealIngredient");
+                });
+
             modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Membership", b =>
                 {
                     b.Property<Guid>("UserId")
@@ -268,6 +304,33 @@ namespace WhatsForDinner.SqlServer.Migrations
                     b.Navigation("ModifiedBy");
                 });
 
+            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.MealIngredient", b =>
+                {
+                    b.HasOne("WhatsForDinner.SqlServer.Entities.Ingredient", "Ingredient")
+                        .WithMany("Meals")
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WhatsForDinner.SqlServer.Entities.Meal", "Meal")
+                        .WithMany("Ingredients")
+                        .HasForeignKey("MealId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WhatsForDinner.SqlServer.Entities.Unit", "Unit")
+                        .WithMany("MealIngredients")
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingredient");
+
+                    b.Navigation("Meal");
+
+                    b.Navigation("Unit");
+                });
+
             modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Membership", b =>
                 {
                     b.HasOne("WhatsForDinner.SqlServer.Entities.Group", "Group")
@@ -297,6 +360,21 @@ namespace WhatsForDinner.SqlServer.Migrations
                     b.Navigation("Meals");
 
                     b.Navigation("Memberships");
+                });
+
+            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Ingredient", b =>
+                {
+                    b.Navigation("Meals");
+                });
+
+            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Meal", b =>
+                {
+                    b.Navigation("Ingredients");
+                });
+
+            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Unit", b =>
+                {
+                    b.Navigation("MealIngredients");
                 });
 
             modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.User", b =>

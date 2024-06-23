@@ -19,6 +19,8 @@ public sealed class DatabaseContext(DbContextOptions<DatabaseContext> options) :
 
 	public DbSet<Unit> Unit { get; set; }
 
+	public DbSet<MealIngredient> MealIngredient { get; set; }
+
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
 		base.OnModelCreating(builder);

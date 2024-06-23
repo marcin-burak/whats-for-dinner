@@ -17,6 +17,10 @@ public sealed class Meal
 
 
 
+	public List<MealIngredient> Ingredients { get; set; } = [];
+
+
+
 	public Guid GroupId { get; set; }
 
 	public Group Group { get; set; } = null!;
