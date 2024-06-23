@@ -12,7 +12,7 @@ using WhatsForDinner.SqlServer;
 namespace WhatsForDinner.SqlServer.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240623101206_Init")]
+    [Migration("20240623120041_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -132,6 +132,10 @@ namespace WhatsForDinner.SqlServer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("RecipeSteps")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
@@ -145,42 +149,6 @@ namespace WhatsForDinner.SqlServer.Migrations
                     b.HasIndex("ModifiedById");
 
                     b.ToTable("Meal");
-                });
-
-            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.MealIngredient", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("IngredientId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<Guid>("MealId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<byte>("Order")
-                        .HasColumnType("tinyint");
-
-                    b.Property<string>("UnitId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(11)");
-
-                    b.HasKey("Id");
-
-                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
-
-                    b.HasAlternateKey("MealId", "IngredientId", "UnitId");
-
-                    b.HasIndex("IngredientId");
-
-                    b.HasIndex("UnitId");
-
-                    b.ToTable("MealIngredient");
                 });
 
             modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Membership", b =>
@@ -198,32 +166,6 @@ namespace WhatsForDinner.SqlServer.Migrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("Membership");
-                });
-
-            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.RecipeStep", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<Guid>("MealId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<byte>("Number")
-                        .HasColumnType("tinyint");
-
-                    b.HasKey("Id");
-
-                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
-
-                    b.HasIndex("MealId");
-
-                    b.ToTable("RecipeStep");
                 });
 
             modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Unit", b =>
@@ -321,40 +263,53 @@ namespace WhatsForDinner.SqlServer.Migrations
                         .WithMany("ModifiedMeals")
                         .HasForeignKey("ModifiedById");
 
+                    b.OwnsMany("WhatsForDinner.SqlServer.Entities.MealIngredient", "Ingredients", b1 =>
+                        {
+                            b1.Property<Guid>("MealId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Amount")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("IngredientId")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("IngredientName")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("UnitId")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("UnitName")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("MealId", "Id");
+
+                            b1.ToTable("Meal");
+
+                            b1.ToJson("Ingredients");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MealId");
+                        });
+
                     b.Navigation("CreatedBy");
 
                     b.Navigation("Effort");
 
                     b.Navigation("Group");
 
+                    b.Navigation("Ingredients");
+
                     b.Navigation("ModifiedBy");
-                });
-
-            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.MealIngredient", b =>
-                {
-                    b.HasOne("WhatsForDinner.SqlServer.Entities.Ingredient", "Ingredient")
-                        .WithMany("Meals")
-                        .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WhatsForDinner.SqlServer.Entities.Meal", "Meal")
-                        .WithMany("Ingredients")
-                        .HasForeignKey("MealId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WhatsForDinner.SqlServer.Entities.Unit", "Unit")
-                        .WithMany("MealIngredients")
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ingredient");
-
-                    b.Navigation("Meal");
-
-                    b.Navigation("Unit");
                 });
 
             modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Membership", b =>
@@ -376,17 +331,6 @@ namespace WhatsForDinner.SqlServer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.RecipeStep", b =>
-                {
-                    b.HasOne("WhatsForDinner.SqlServer.Entities.Meal", "Meal")
-                        .WithMany("RecipeSteps")
-                        .HasForeignKey("MealId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Meal");
-                });
-
             modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Effort", b =>
                 {
                     b.Navigation("Meals");
@@ -397,23 +341,6 @@ namespace WhatsForDinner.SqlServer.Migrations
                     b.Navigation("Meals");
 
                     b.Navigation("Memberships");
-                });
-
-            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Ingredient", b =>
-                {
-                    b.Navigation("Meals");
-                });
-
-            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Meal", b =>
-                {
-                    b.Navigation("Ingredients");
-
-                    b.Navigation("RecipeSteps");
-                });
-
-            modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.Unit", b =>
-                {
-                    b.Navigation("MealIngredients");
                 });
 
             modelBuilder.Entity("WhatsForDinner.SqlServer.Entities.User", b =>

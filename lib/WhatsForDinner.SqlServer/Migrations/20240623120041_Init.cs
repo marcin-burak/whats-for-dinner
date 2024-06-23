@@ -85,11 +85,13 @@ namespace WhatsForDinner.SqlServer.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EffortId = table.Column<string>(type: "nvarchar(6)", nullable: false),
+                    RecipeSteps = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ModifiedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Ingredients = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -145,63 +147,6 @@ namespace WhatsForDinner.SqlServer.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "MealIngredient",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MealId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IngredientId = table.Column<string>(type: "nvarchar(20)", nullable: false),
-                    UnitId = table.Column<string>(type: "nvarchar(11)", nullable: false),
-                    Amount = table.Column<int>(type: "int", nullable: false),
-                    Order = table.Column<byte>(type: "tinyint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MealIngredient", x => x.Id)
-                        .Annotation("SqlServer:Clustered", false);
-                    table.UniqueConstraint("AK_MealIngredient_MealId_IngredientId_UnitId", x => new { x.MealId, x.IngredientId, x.UnitId });
-                    table.ForeignKey(
-                        name: "FK_MealIngredient_Ingredient_IngredientId",
-                        column: x => x.IngredientId,
-                        principalTable: "Ingredient",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MealIngredient_Meal_MealId",
-                        column: x => x.MealId,
-                        principalTable: "Meal",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MealIngredient_Unit_UnitId",
-                        column: x => x.UnitId,
-                        principalTable: "Unit",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RecipeStep",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Number = table.Column<byte>(type: "tinyint", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    MealId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RecipeStep", x => x.Id)
-                        .Annotation("SqlServer:Clustered", false);
-                    table.ForeignKey(
-                        name: "FK_RecipeStep_Meal_MealId",
-                        column: x => x.MealId,
-                        principalTable: "Meal",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "Effort",
                 columns: new[] { "Id", "Name" },
@@ -253,46 +198,25 @@ namespace WhatsForDinner.SqlServer.Migrations
                 column: "ModifiedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MealIngredient_IngredientId",
-                table: "MealIngredient",
-                column: "IngredientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MealIngredient_UnitId",
-                table: "MealIngredient",
-                column: "UnitId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Membership_GroupId",
                 table: "Membership",
                 column: "GroupId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RecipeStep_MealId",
-                table: "RecipeStep",
-                column: "MealId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "MealIngredient");
+                name: "Ingredient");
+
+            migrationBuilder.DropTable(
+                name: "Meal");
 
             migrationBuilder.DropTable(
                 name: "Membership");
 
             migrationBuilder.DropTable(
-                name: "RecipeStep");
-
-            migrationBuilder.DropTable(
-                name: "Ingredient");
-
-            migrationBuilder.DropTable(
                 name: "Unit");
-
-            migrationBuilder.DropTable(
-                name: "Meal");
 
             migrationBuilder.DropTable(
                 name: "Effort");

@@ -19,7 +19,7 @@ public sealed class Meal
 
 	public List<MealIngredient> Ingredients { get; set; } = [];
 
-	public List<RecipeStep> RecipeSteps { get; set; } = [];
+	public List<string> RecipeSteps { get; set; } = [];
 
 
 
@@ -47,11 +47,26 @@ public sealed class Meal
 	public DateTime? ModifiedAt { get; set; }
 }
 
+public sealed class MealIngredient
+{
+	public string IngredientId { get; set; } = string.Empty;
+
+	public string IngredientName { get; set; } = string.Empty;
+
+	public string UnitId { get; set; } = string.Empty;
+
+	public string UnitName { get; set; } = string.Empty;
+
+	public ushort Amount { get; set; }
+}
+
 public sealed class MealConfiguration : IEntityTypeConfiguration<Meal>
 {
 	public void Configure(EntityTypeBuilder<Meal> builder)
 	{
 		builder.HasKey(meal => meal.Id)
 			.IsClustered(false);
+
+		builder.OwnsMany(meal => meal.Ingredients, ingredient => ingredient.ToJson());
 	}
 }

@@ -10,8 +10,6 @@ public sealed class Unit
 
 	public string Name { get; set; } = string.Empty;
 
-	public List<MealIngredient> MealIngredients { get; set; } = [];
-
 
 
 	public static Unit Gram => new()

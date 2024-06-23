@@ -10,8 +10,6 @@ public sealed class Ingredient
 
 	public string Name { get; set; } = string.Empty;
 
-	public List<MealIngredient> Meals { get; set; } = [];
-
 
 
 	public static Ingredient Milk => new()
