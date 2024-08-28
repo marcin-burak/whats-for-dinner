@@ -1,7 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\lib\WhatsForDinner.Common\WhatsForDinner.Common.csproj" />
-  </ItemGroup>
-
-</Project>

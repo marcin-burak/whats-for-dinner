@@ -1,7 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\lib\WhatsForDinner.SqlServer\WhatsForDinner.SqlServer.csproj" />
-  </ItemGroup>
-
-</Project>

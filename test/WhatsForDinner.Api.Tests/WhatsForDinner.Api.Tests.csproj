@@ -1,7 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\WhatsForDinner.Api\WhatsForDinner.Api.csproj" />
-  </ItemGroup>
-
-</Project>
