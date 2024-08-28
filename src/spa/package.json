@@ -1,0 +1,44 @@
+{
+  "name": "whats-for-dinner-spa",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fluentui/react-components": "9.54.13",
+    "@fluentui/react-icons": "2.0.256",
+    "@fluentui/react-nav-preview": "0.7.4",
+    "@types/node": "16.18.106",
+    "@types/react": "18.3.4",
+    "@types/react-dom": "18.3.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router-dom": "6.26.1",
+    "react-scripts": "5.0.1",
+    "typescript": "4.9.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "sass": "1.77.8"
+  }
+}
